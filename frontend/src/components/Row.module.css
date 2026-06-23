@@ -1,0 +1,74 @@
+.rowContainer {
+  margin-bottom: 40px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.viewAll {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-speed);
+}
+
+.viewAll:hover {
+  color: var(--accent-color);
+}
+
+.swiper {
+  padding-bottom: 10px; /* Space for box-shadow on hover */
+}
+
+.slide {
+  width: 110px; /* Mobile width to show 3 cards */
+}
+
+@media (min-width: 576px) {
+  .slide { width: 130px; }
+}
+
+@media (min-width: 768px) {
+  .slide { width: 160px; }
+}
+
+@media (min-width: 1024px) {
+  .slide { width: 180px; }
+}
+
+/* Skeleton Layout */
+.skeletonGrid {
+  display: flex;
+  gap: 16px;
+  overflow: hidden;
+}
+
+.skeletonSlide {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+@media (min-width: 576px) {
+  .skeletonSlide { width: 160px; }
+}
+
+@media (min-width: 768px) {
+  .skeletonSlide { width: 180px; }
+}
+
+@media (min-width: 1024px) {
+  .skeletonSlide { width: 200px; }
+}

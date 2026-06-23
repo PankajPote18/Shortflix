@@ -1,0 +1,197 @@
+.home {
+  padding-bottom: 50px;
+}
+
+.heroSection {
+  position: relative;
+  width: 100%;
+  height: 75vh;
+  min-height: 500px;
+  max-height: 850px;
+  margin-bottom: 40px;
+}
+
+.heroSkeleton {
+  width: 100%;
+  height: 100%;
+}
+
+.heroSwiper {
+  width: 100%;
+  height: 100%;
+}
+
+.heroSlide {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.heroImageWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+.heroImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 20%;
+}
+
+.heroGradient {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(15, 15, 15, 0.9) 0%,
+    rgba(15, 15, 15, 0.4) 50%,
+    transparent 100%
+  ), linear-gradient(
+    to top,
+    rgba(15, 15, 15, 1) 0%,
+    transparent 20%
+  );
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: 180px;
+}
+
+.heroTitle {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  max-width: 800px;
+  line-height: 1.1;
+}
+
+.heroDesc {
+  font-size: 18px;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 30px;
+}
+
+.heroActions {
+  display: flex;
+  gap: 15px;
+}
+
+.playBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #000000;
+  padding: 12px 40px;
+  border-radius: 4px;
+  font-size: 18px;
+  font-weight: 700;
+  transition: opacity var(--transition-speed), transform var(--transition-speed);
+}
+
+.playBtn:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.swiperButtonPrev,
+.swiperButtonNext {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: white;
+  z-index: 20;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color var(--transition-speed);
+  backdrop-filter: blur(4px);
+}
+
+.swiperButtonPrev:hover,
+.swiperButtonNext:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.swiperButtonPrev {
+  left: 20px;
+}
+
+.swiperButtonNext {
+  right: 20px;
+}
+
+.customPagination {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  display: flex;
+  gap: 8px;
+}
+
+.customPagination :global(.swiper-pagination-bullet) {
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 1;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.customPagination :global(.swiper-pagination-bullet-active) {
+  width: 24px;
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+@media (max-width: 768px) {
+  .heroSection {
+    height: 70vh; /* Give more vertical space like desktop */
+    min-height: 450px;
+  }
+  
+  .heroContent {
+    padding-bottom: 120px; /* Shift text/button higher */
+  }
+  
+  .heroTitle {
+    font-size: 26px; /* Reduced font size */
+    line-height: 1.2;
+  }
+
+  .heroDesc {
+    display: none; /* Hide description on mobile to keep it clean, as per typical mobile hero sections */
+  }
+
+  .playBtn {
+    padding: 10px 24px;
+    font-size: 15px;
+  }
+
+  .swiperButtonPrev,
+  .swiperButtonNext {
+    display: none; /* Hide arrows on mobile */
+  }
+}

@@ -1,0 +1,130 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: transparent;
+  z-index: 1000;
+  transition: background var(--transition-speed);
+}
+
+.header.scrolled {
+  background: var(--header-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.left, .right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logoAccent {
+  color: var(--accent-color);
+}
+
+.nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav a {
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition-speed);
+}
+
+.nav a:hover {
+  color: var(--text-primary);
+}
+
+.searchForm {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 5px 15px;
+}
+
+.searchInput {
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  outline: none;
+  width: 150px;
+  transition: width var(--transition-speed);
+}
+
+.searchInput:focus {
+  width: 200px;
+}
+
+.searchBtn {
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchBtn:hover {
+  color: var(--text-primary);
+}
+
+.loginBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--accent-color);
+  color: #fff;
+  border-radius: 50%;
+  transition: opacity var(--transition-speed);
+}
+
+.loginBtn:hover {
+  opacity: 0.8;
+}
+
+.mobileMenuBtn {
+  display: none;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .headerContainer {
+    gap: 10px;
+  }
+  
+  .left, .right {
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+  
+  .searchInput {
+    width: 100px;
+  }
+  
+  .searchInput:focus {
+    width: 130px;
+  }
+}
