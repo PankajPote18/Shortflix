@@ -201,4 +201,11 @@
   .swiperButtonNext {
     display: none; /* Hide arrows on mobile */
   }
+
+  .customPagination {
+    left: auto !important;
+    right: 20px !important;
+    transform: none !important;
+    bottom: 20px !important;
+  }
 }
