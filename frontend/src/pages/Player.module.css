@@ -413,8 +413,9 @@
   }
 
   .videoContainer {
-    max-width: 100%;
-    border-radius: 0;
-    max-height: 45vh; /* Reduced size to show UI below */
+    width: calc(100% - 20px);
+    margin: 0 auto;
+    border-radius: 12px;
+    max-height: 65vh;
   }
 }

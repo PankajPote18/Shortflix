@@ -132,11 +132,8 @@ const Player = () => {
     <div className={styles.playerPage}>
       <div className={styles.topBar}>
         <button onClick={() => navigate(-1)} className={styles.backBtn}>
-          <ArrowLeft size={24} />
+          <ArrowLeft size={20} />
         </button>
-        <span className={styles.topBarTitle}>
-          {series?.title?.length > 25 ? series?.title?.substring(0, 25) + '...' : series?.title}
-        </span>
       </div>
 
       <div className={styles.layout}>
