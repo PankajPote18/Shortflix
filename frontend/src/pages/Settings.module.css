@@ -1,0 +1,83 @@
+.settingsPage {
+  min-height: 100vh;
+  background-color: #050505;
+  padding: 40px 20px 100px; /* bottom padding for the nav bar */
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  width: 100%;
+  max-width: 600px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  background-color: #0f1014;
+  border: 1px solid #1a1b22;
+  border-radius: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.item:hover {
+  background-color: #16181f;
+}
+
+/* Highlighted Item (Explore Plans) */
+.item.highlight {
+  border-color: rgba(255, 51, 102, 0.4);
+}
+
+.item.highlight .iconWrapper {
+  border-color: #ff3366;
+}
+
+.item.highlight .icon {
+  color: #ff3366;
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #2a2d36;
+  background-color: rgba(0, 0, 0, 0.2);
+  margin-right: 16px;
+}
+
+.icon {
+  color: #00bcd4; /* Use cyan by default, or another cool color to contrast with pink if desired. The prompt said "keep the color in a shade of pink". So let's make default icons white or light gray, and highlighted ones pink */
+}
+
+/* Let's make all default icons slightly tinted white to match screenshot */
+.item:not(.highlight) .icon {
+  color: #00bcd4; 
+}
+
+/* Wait, the prompt said "keep the color in a shade of pink". This might mean ALL colors that were blue in the screenshot should be pink! */
+.item:not(.highlight) .icon {
+  color: #ff6690;
+}
+
+.label {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  color: #f1f1f1;
+}
+
+.chevron {
+  color: #444;
+}

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import BottomNav from './components/BottomNav';
 import Home from './pages/Home';
+import Settings from './pages/Settings';
 import Player from './pages/Player';
 import { WatchProvider } from './context/WatchContext';
 import './styles/global.css';
@@ -16,6 +17,9 @@ function App() {
           {/* Routes with Header and Footer */}
           <Route path="/" element={<><Header /><Home /><Footer /></>} />
           
+          {/* Settings Route */}
+          <Route path="/settings" element={<Settings />} />
+
           {/* Player Routes without Header */}
           <Route path="/watch/:seriesId" element={<Player />} />
           <Route path="/watch/:seriesId/:episodeId" element={<Player />} />
