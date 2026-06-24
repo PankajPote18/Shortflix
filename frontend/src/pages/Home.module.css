@@ -153,6 +153,7 @@
   border-radius: 20px;
   background: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(4px);
+  width: auto !important; /* Fix swiper overriding width to 100% causing a blur line */
 }
 
 .customPagination :global(.swiper-pagination-bullet) {

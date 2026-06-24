@@ -46,7 +46,7 @@
 .videoContainer {
   position: relative;
   width: 100%;
-  max-width: 400px; /* Constrain for vertical video */
+  max-width: 500px; /* Increased from 400px to balance right column height on desktop */
   aspect-ratio: 9 / 16;
   background-color: #111;
   border-radius: 12px;
@@ -398,6 +398,7 @@
 
   .videoContainer {
     width: calc(100% - 20px);
+    max-width: 100%; /* Ensure mobile doesn't get constrained by desktop max-width */
     margin: 0 auto;
     border-radius: 12px;
     max-height: 65vh;
