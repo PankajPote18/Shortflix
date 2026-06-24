@@ -34,19 +34,19 @@
 }
 
 .slide {
-  width: 95px; /* Mobile width */
+  width: 110px; /* Mobile width to show 3 cards */
 }
 
 @media (min-width: 576px) {
-  .slide { width: 110px; }
-}
-
-@media (min-width: 768px) {
   .slide { width: 130px; }
 }
 
+@media (min-width: 768px) {
+  .slide { width: 160px; }
+}
+
 @media (min-width: 1024px) {
-  .slide { width: 150px; }
+  .slide { width: 180px; }
 }
 
 /* Skeleton Layout */

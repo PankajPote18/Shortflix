@@ -46,7 +46,7 @@
 .videoContainer {
   position: relative;
   width: 100%;
-  max-width: 500px; /* Increased from 400px to balance right column height on desktop */
+  max-width: 380px; /* Reduced to balance with the new shorter right column */
   aspect-ratio: 9 / 16;
   background-color: #111;
   border-radius: 12px;
