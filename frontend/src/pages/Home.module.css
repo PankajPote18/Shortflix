@@ -143,11 +143,11 @@
 
 .customPagination {
   position: absolute;
-  bottom: 15px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 15px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
   z-index: 30;
-  display: flex;
+  display: inline-flex !important;
   gap: 10px;
   padding: 5px 10px;
   border-radius: 20px;
