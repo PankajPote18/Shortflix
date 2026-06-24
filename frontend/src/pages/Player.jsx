@@ -229,6 +229,17 @@ const Player = () => {
             </div>
           </div>
 
+          <div className={styles.divider}></div>
+
+          <div className={styles.plotSection}>
+            <h3>Plot of Episode {currentEpisode.episode_number}</h3>
+            <p>
+              {currentEpisode.description?.length > 100 
+                ? `${currentEpisode.description.substring(0, 100)}... ` 
+                : currentEpisode.description}
+              <span className={styles.moreText}>More</span>
+            </p>
+          </div>
           
           <div className={styles.recommendationSection}>
             <Row title="Recommendation for you" data={recommendations} />
