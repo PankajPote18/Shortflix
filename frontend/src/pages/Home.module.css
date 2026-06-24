@@ -168,12 +168,12 @@
 
 @media (max-width: 768px) {
   .heroSection {
-    height: 70vh; /* Give more vertical space like desktop */
-    min-height: 450px;
+    height: 40vh; /* Reduced height by ~40% */
+    min-height: 280px;
   }
   
   .heroContent {
-    padding-bottom: 120px; /* Shift text/button higher */
+    padding-bottom: 50px; /* Adjusted padding to fit new height */
   }
   
   .heroTitle {
