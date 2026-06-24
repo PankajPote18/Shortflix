@@ -130,8 +130,13 @@ const Player = () => {
 
   return (
     <div className={styles.playerPage}>
-      <div className={`container ${styles.breadcrumbs}`}>
-        <Link to="/" className={styles.breadcrumbLink}>Home</Link> / <span className={styles.breadcrumbCurrent}>{series?.title?.length > 15 ? series?.title?.substring(0, 15) + '...' : series?.title}</span> / Episode {currentEpisode.episode_number}
+      <div className={styles.topBar}>
+        <button onClick={() => navigate(-1)} className={styles.backBtn}>
+          <ArrowLeft size={24} />
+        </button>
+        <span className={styles.topBarTitle}>
+          {series?.title?.length > 25 ? series?.title?.substring(0, 25) + '...' : series?.title}
+        </span>
       </div>
 
       <div className={styles.layout}>
