@@ -203,9 +203,6 @@
   }
 
   .customPagination {
-    left: auto !important;
-    right: 20px !important;
-    transform: none !important;
-    bottom: 20px !important;
+    display: none !important; /* Hide pagination dots on mobile */
   }
 }
