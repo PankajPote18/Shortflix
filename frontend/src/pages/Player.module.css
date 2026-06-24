@@ -1,7 +1,7 @@
 .playerPage {
   background-color: #000;
   min-height: 100vh;
-  padding-top: 30px; /* Minimal space above */
+  padding-top: 10px; /* Minimal space above */
   padding-bottom: 50px;
   color: #fff;
 }
