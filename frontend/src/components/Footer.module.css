@@ -15,7 +15,7 @@
 }
 
 .footerLink {
-  color: #00bcd4;
+  color: #ff3366;
   font-size: 14px;
   text-decoration: none;
   font-weight: 500;
@@ -23,7 +23,7 @@
 }
 
 .footerLink:hover {
-  color: #4dd0e1;
+  color: #ff6690;
   text-decoration: underline;
 }
 

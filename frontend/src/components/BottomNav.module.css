@@ -39,10 +39,10 @@
   }
 
   .navItem.active {
-    color: #00bcd4;
+    color: #ff3366;
   }
 
   .navItem.active svg {
-    filter: drop-shadow(0 0 6px rgba(0, 188, 212, 0.4));
+    filter: drop-shadow(0 0 6px rgba(255, 51, 102, 0.4));
   }
 }
