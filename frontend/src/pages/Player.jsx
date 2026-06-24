@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { ArrowLeft, Play, Pause, Heart, Star, Share, Lock, BarChart2, SkipForward, Volume2, VolumeX, Maximize } from 'lucide-react';
-import { getSeriesById, getEpisodesBySeriesId } from '../services/api';
+import { getSeriesById, getEpisodesBySeriesId, getHomeData } from '../services/api';
+import Row from '../components/Row';
 import { useWatchContext } from '../context/WatchContext';
 import styles from './Player.module.css';
 
@@ -13,6 +14,7 @@ const Player = () => {
   const [series, setSeries] = useState(null);
   const [episodes, setEpisodes] = useState([]);
   const [currentEpisode, setCurrentEpisode] = useState(null);
+  const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
   
   const [isPlaying, setIsPlaying] = useState(false);
@@ -26,12 +28,14 @@ const Player = () => {
     const fetchVideoData = async () => {
       setLoading(true);
       try {
-        const [seriesRes, episodesRes] = await Promise.all([
+        const [seriesRes, episodesRes, homeRes] = await Promise.all([
           getSeriesById(seriesId),
-          getEpisodesBySeriesId(seriesId)
+          getEpisodesBySeriesId(seriesId),
+          getHomeData()
         ]);
         setSeries(seriesRes.data);
         setEpisodes(episodesRes.data);
+        setRecommendations(homeRes.data.trending || []);
         
         const targetEpisodeId = episodeId ? parseInt(episodeId) : null;
         const ep = targetEpisodeId 
@@ -190,9 +194,10 @@ const Player = () => {
 
         {/* Right: Sidebar */}
         <div className={styles.rightColumn}>
-          <h1 className={styles.episodeTitle}>
-            Episode {currentEpisode.episode_number} - {series?.title} Full Movie
-          </h1>
+          <h1 className={styles.seriesTitle}>{series?.title}</h1>
+          <h2 className={styles.episodeTitle}>
+            Episode {currentEpisode.episode_number} - Full Movie
+          </h2>
           
           <div className={styles.episodesSection}>
             <div className={styles.episodeTabs}>
@@ -260,15 +265,7 @@ const Player = () => {
           </div>
           
           <div className={styles.recommendationSection}>
-            <h3 className={styles.recTitle}>Recommendation for you</h3>
-            <div className={styles.recGrid}>
-              {/* Dummy recommendations for now, will map actual data if needed, but styling is key */}
-              {[1, 2, 3].map(i => (
-                <div key={i} className={styles.recCard}>
-                  <img src={`https://picsum.photos/300/400?random=${i + 50}`} alt="Rec" className={styles.recImg} />
-                </div>
-              ))}
-            </div>
+            <Row title="Recommendation for you" data={recommendations} />
           </div>
 
         </div>
