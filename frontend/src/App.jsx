@@ -15,9 +15,9 @@ function App() {
           {/* Routes with Header and Footer */}
           <Route path="/" element={<><Header /><Home /><Footer /></>} />
           
-          {/* Player Route with Header to match screenshot */}
-          <Route path="/watch/:seriesId" element={<><Header /><Player /></>} />
-          <Route path="/watch/:seriesId/:episodeId" element={<><Header /><Player /></>} />
+          {/* Player Routes without Header */}
+          <Route path="/watch/:seriesId" element={<Player />} />
+          <Route path="/watch/:seriesId/:episodeId" element={<Player />} />
         </Routes>
       </Router>
     </WatchProvider>

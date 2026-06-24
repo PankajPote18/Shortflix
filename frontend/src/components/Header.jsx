@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, User, Menu, X } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './Header.module.css';
-import LoginModal from './LoginModal';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -18,46 +14,21 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      navigate(`/search?q=${searchQuery}`);
-    }
-  };
+  // Only show the header on the exact home page
+  if (location.pathname !== '/') {
+    return null;
+  }
 
   return (
-    <>
-      <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
-        <div className={`container ${styles.headerContainer}`}>
-          <div className={styles.left}>
-            <Link to="/" className={styles.logo}>
-              <span className={styles.logoAccent}>Short</span>Flix
-            </Link>
-          </div>
-
-          <div className={styles.right}>
-            <form onSubmit={handleSearch} className={styles.searchForm}>
-              <input 
-                type="text" 
-                placeholder="Search..." 
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={styles.searchInput}
-              />
-              <button type="submit" className={styles.searchBtn}>
-                <Search size={20} />
-              </button>
-            </form>
-
-            <button className={styles.loginBtn} onClick={() => setIsLoginModalOpen(true)}>
-              <User size={20} />
-            </button>
-          </div>
+    <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
+      <div className={`container ${styles.headerContainer}`}>
+        <div className={styles.left}>
+          <Link to="/" className={styles.logo}>
+            <span className={styles.logoAccent}>Short</span>Flix
+          </Link>
         </div>
-      </header>
-
-      {isLoginModalOpen && <LoginModal onClose={() => setIsLoginModalOpen(false)} />}
-    </>
+      </div>
+    </header>
   );
 };
 

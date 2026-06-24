@@ -1,6 +1,6 @@
 .footer {
   background-color: #000000;
-  padding: 60px 0;
+  padding: 60px 0 40px;
   border-top: 1px solid #1a1a1a;
   margin-top: 60px;
 }
@@ -8,139 +8,53 @@
 .footerContainer {
   display: flex;
   flex-direction: column;
-  gap: 40px;
-}
-
-@media (min-width: 768px) {
-  .footerContainer {
-    flex-direction: row;
-    justify-content: space-between;
-  }
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 20px;
 }
 
 .brandSection {
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  max-width: 300px;
+  align-items: center;
+  gap: 10px;
 }
 
 .logo {
   font-size: 28px;
   font-weight: 800;
-  color: var(--text-primary);
+  color: var(--accent-color, #ff3366);
   text-decoration: none;
   letter-spacing: -0.5px;
-}
-
-.logoAccent {
-  color: var(--text-primary);
 }
 
 .copyright {
   color: var(--text-secondary);
   font-size: 13px;
-  margin-bottom: 10px;
-}
-
-.socialIcons {
-  display: flex;
-  gap: 12px;
-}
-
-.iconLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--text-secondary);
-  transition: all var(--transition-speed);
-}
-
-.iconLink:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #fff;
 }
 
 .linksContainer {
   display: flex;
-  gap: 80px;
-  flex: 1;
+  gap: 30px;
   justify-content: center;
+  margin-top: 10px;
+}
+
+.linksContainer a {
+  color: var(--text-secondary);
+  font-size: 14px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-speed);
+}
+
+.linksContainer a:hover {
+  color: #fff;
 }
 
 @media (max-width: 768px) {
   .linksContainer {
-    flex-direction: column;
-    gap: 30px;
-    justify-content: flex-start;
+    gap: 20px;
   }
-}
-
-.linkColumn {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.linkColumn h4 {
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.linkColumn a {
-  color: var(--text-secondary);
-  font-size: 14px;
-  text-decoration: none;
-  transition: color var(--transition-speed);
-}
-
-.linkColumn a:hover {
-  color: #fff;
-}
-
-.serviceHours {
-  font-size: 12px;
-  color: #777;
-  margin-top: 5px;
-  line-height: 1.4;
-  max-width: 200px;
-}
-
-.downloadSection {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: flex-start;
-}
-
-.downloadSection h4 {
-  color: #fff;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-.qrCodeWrapper {
-  background: #fff;
-  padding: 8px;
-  border-radius: 8px;
-  display: inline-block;
-}
-
-.qrCode {
-  width: 100px;
-  height: 100px;
-  display: block;
-}
-
-.downloadText {
-  color: var(--text-secondary);
-  font-size: 13px;
 }
