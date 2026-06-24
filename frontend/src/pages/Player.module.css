@@ -97,16 +97,29 @@
 }
 
 .breadcrumbs {
-  font-size: 12px;
+  font-size: 11px;
   color: #777;
-  margin-bottom: 25px;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.breadcrumbLink {
+  color: #777;
+  text-decoration: none;
+}
+
+.breadcrumbCurrent {
+  color: #fff;
 }
 
 .episodeTitle {
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 700;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   line-height: 1.3;
+  padding: 0 20px;
 }
 
 .plotSection h3 {
@@ -132,7 +145,8 @@
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  padding: 0 20px;
 }
 
 .tag {
@@ -146,7 +160,8 @@
 .actionRow {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
+  padding: 0 20px;
 }
 
 .actionItem {
@@ -167,7 +182,11 @@
 .divider {
   height: 1px;
   background-color: #222;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
+}
+
+.plotSection {
+  padding: 0 20px;
 }
 
 .episodesSection {
@@ -179,8 +198,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-size: 13px;
+  padding: 0 20px;
 }
 
 .tabGroup {
@@ -189,10 +209,12 @@
 }
 
 .activeTab {
-  color: #ff3333;
-  border-bottom: 2px solid #ff3333;
-  padding-bottom: 5px;
+  color: #fff;
   font-weight: 600;
+}
+
+.inactiveTab {
+  color: #555;
 }
 
 .allEpisodes {
@@ -200,20 +222,44 @@
   cursor: pointer;
 }
 
+.episodeGridWrapper {
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.episodeGridWrapper::-webkit-scrollbar {
+  display: none;
+}
+
 .episodeGrid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  display: flex;
+  gap: 10px;
+  width: max-content;
+}
+
+.trailerBtn {
+  background-color: #222;
+  color: #aaa;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+  border-radius: 4px;
+  height: 45px;
 }
 
 .gridItem {
-  aspect-ratio: 1;
+  width: 45px;
+  height: 45px;
   background-color: #1a1a1a;
-  border-radius: 6px;
+  border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: #ccc;
+  color: #fff;
   font-size: 14px;
   font-weight: 600;
   text-decoration: none;
@@ -226,7 +272,7 @@
 }
 
 .activeGridItem {
-  background: linear-gradient(to bottom, #ff3333, #800000);
+  background: linear-gradient(135deg, #3a2020, #4a2525);
   color: white;
   border: none;
 }
@@ -242,9 +288,13 @@
 }
 
 .equalizer {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.8;
 }
 
 /* Custom Video Controls */
@@ -320,12 +370,54 @@
   color: #fff;
 }
 
+.recommendationSection {
+  padding: 20px;
+  margin-top: 10px;
+}
+
+.recTitle {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.recGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.recCard {
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 2 / 3;
+}
+
+.recImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 @media (max-width: 1024px) {
+  .playerPage {
+    padding-top: 0;
+  }
+  
   .layout {
     flex-direction: column;
+    padding: 0;
+    gap: 0;
   }
   
   .rightColumn {
     width: 100%;
+    padding-top: 15px;
+  }
+
+  .videoContainer {
+    max-width: 100%;
+    border-radius: 0;
   }
 }

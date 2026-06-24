@@ -130,13 +130,13 @@ const Player = () => {
 
   return (
     <div className={styles.playerPage}>
+      <div className={`container ${styles.breadcrumbs}`}>
+        <Link to="/" className={styles.breadcrumbLink}>Home</Link> / <span className={styles.breadcrumbCurrent}>{series?.title?.length > 15 ? series?.title?.substring(0, 15) + '...' : series?.title}</span> / Episode {currentEpisode.episode_number}
+      </div>
+
       <div className={styles.layout}>
         {/* Left: Video Player */}
         <div className={styles.leftColumn}>
-          <Link to="/" className={styles.backBtn}>
-            <ArrowLeft size={20} />
-          </Link>
-          
           <div className={styles.videoContainer} onClick={togglePlay} ref={containerRef}>
             <video
               ref={videoRef}
@@ -188,69 +188,87 @@ const Player = () => {
 
         {/* Right: Sidebar */}
         <div className={styles.rightColumn}>
-          <div className={styles.breadcrumbs}>
-            Home / {series?.title} / Episode {currentEpisode.episode_number}
-          </div>
-          
           <h1 className={styles.episodeTitle}>
             Episode {currentEpisode.episode_number} - {series?.title} Full Movie
           </h1>
           
-          <div className={styles.plotSection}>
-            <h3>Plot of Episode {currentEpisode.episode_number}</h3>
-            <p>
-              {currentEpisode.description}
-              <span className={styles.moreText}>... More</span>
-            </p>
+          <div className={styles.episodesSection}>
+            <div className={styles.episodeTabs}>
+              <div className={styles.tabGroup}>
+                <span className={styles.activeTab}>0-49</span>
+                <span className={styles.inactiveTab}>50-66</span>
+              </div>
+              <span className={styles.allEpisodes}>All Episodes &gt;</span>
+            </div>
+            
+            <div className={styles.episodeGridWrapper}>
+              <div className={styles.episodeGrid}>
+                <div className={styles.trailerBtn}>Trailer</div>
+                {episodes.map((ep) => {
+                  const isActive = currentEpisode.id === ep.id;
+                  return (
+                    <Link 
+                      key={ep.id} 
+                      to={`/watch/${seriesId}/${ep.id}`}
+                      className={`${styles.gridItem} ${isActive ? styles.activeGridItem : ''}`}
+                    >
+                      {ep.episode_number}
+                      {isActive && <div className={styles.equalizer}><BarChart2 size={12} color="white" /></div>}
+                      {ep.is_premium && <Lock size={10} className={styles.lockIcon} fill="red" color="red" />}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
           </div>
-          
-          <div className={styles.tagsRow}>
-            {['Werewolf', 'Love Triangle', 'All-Too-Late', 'Contract Lovers'].map(tag => (
-              <span key={tag} className={styles.tag}>{tag}</span>
-            ))}
-          </div>
+
+          <div className={styles.divider}></div>
           
           <div className={styles.actionRow}>
             <div className={styles.actionItem}>
-              <Heart size={24} fill="white" />
-              <span>9.9k</span>
+              <Heart size={22} fill="white" />
+              <span>3.7k</span>
             </div>
             <div className={styles.actionItem}>
-              <Star size={24} fill="white" />
-              <span>135.3k</span>
+              <Star size={22} fill="white" />
+              <span>49.4k</span>
             </div>
             <div className={styles.actionItem}>
-              <Share size={24} fill="white" />
+              <Share size={22} fill="white" />
               <span>Share</span>
             </div>
           </div>
           
           <div className={styles.divider}></div>
+
+          <div className={styles.plotSection}>
+            <h3>Plot of Episode {currentEpisode.episode_number}</h3>
+            <p>
+              {currentEpisode.description?.length > 100 
+                ? `${currentEpisode.description.substring(0, 100)}... ` 
+                : currentEpisode.description}
+              <span className={styles.moreText}>More</span>
+            </p>
+          </div>
           
-          <div className={styles.episodesSection}>
-            <div className={styles.episodeTabs}>
-              <div className={styles.tabGroup}>
-                <span className={styles.activeTab}>1 - 20</span>
-              </div>
-              <span className={styles.allEpisodes}>All Episodes &gt;</span>
-            </div>
-            
-            <div className={styles.episodeGrid}>
-              {episodes.map((ep) => {
-                const isActive = currentEpisode.id === ep.id;
-                return (
-                  <Link 
-                    key={ep.id} 
-                    to={`/watch/${seriesId}/${ep.id}`}
-                    className={`${styles.gridItem} ${isActive ? styles.activeGridItem : ''}`}
-                  >
-                    {isActive ? <div className={styles.equalizer}><BarChart2 size={16} color="white" /></div> : ep.episode_number}
-                    {ep.is_premium && <Lock size={10} className={styles.lockIcon} fill="red" color="red" />}
-                  </Link>
-                );
-              })}
+          <div className={styles.tagsRow}>
+            {['Emotional', 'Exciting', 'USA', 'Banquet', 'Mansion', 'Contemporary'].map(tag => (
+              <span key={tag} className={styles.tag}>{tag}</span>
+            ))}
+          </div>
+          
+          <div className={styles.recommendationSection}>
+            <h3 className={styles.recTitle}>Recommendation for you</h3>
+            <div className={styles.recGrid}>
+              {/* Dummy recommendations for now, will map actual data if needed, but styling is key */}
+              {[1, 2, 3].map(i => (
+                <div key={i} className={styles.recCard}>
+                  <img src={`https://picsum.photos/300/400?random=${i + 50}`} alt="Rec" className={styles.recImg} />
+                </div>
+              ))}
             </div>
           </div>
+
         </div>
       </div>
     </div>
