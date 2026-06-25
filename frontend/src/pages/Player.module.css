@@ -1,7 +1,8 @@
 .playerPage {
   background-color: #000;
   min-height: 100vh;
-  padding-top: 10px; /* Minimal space above */
+  padding-top: 10px;
+  /* Minimal space above */
   padding-bottom: 50px;
   color: #fff;
 }
@@ -9,10 +10,11 @@
 .layout {
   display: flex;
   justify-content: center;
-  max-width: 1000px;
+  align-items: flex-start;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 20px;
-  gap: 60px;
+  gap: 40px;
 }
 
 .leftColumn {
@@ -45,13 +47,13 @@
 .videoContainer {
   position: relative;
   width: 100%;
-  max-width: 380px; /* Reduced to balance with the new shorter right column */
+  max-width: 500px;
   aspect-ratio: 9 / 16;
   background-color: #111;
   border-radius: 12px;
   overflow: hidden;
   cursor: pointer;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
 .videoElement {
@@ -62,7 +64,10 @@
 
 .playOverlay {
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,7 +90,8 @@
 }
 
 .playIcon {
-  margin-left: 5px; /* Visual center adjustment */
+  margin-left: 5px;
+  /* Visual center adjustment */
 }
 
 /* Right Column styling */
@@ -93,7 +99,59 @@
   width: 450px;
   display: flex;
   flex-direction: column;
+  height: calc(500px * 16 / 9);
+  /* Match exactly the video height */
+  justify-content: space-between;
+  /* Distribute space evenly */
   padding-top: 20px;
+}
+
+.rightTop {
+  display: contents;
+}
+
+.floatingBackBtn {
+  position: absolute;
+  top: 0px;
+  left: -60px;
+  width: 44px;
+  height: 44px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.3s;
+}
+
+.floatingBackBtn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.breadcrumbs {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 5px;
+  padding: 0;
+}
+
+.breadcrumbLink {
+  color: #aaa;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.breadcrumbLink:hover {
+  color: #fff;
+}
+
+.breadcrumbCurrent {
+  color: #fff;
+  font-weight: 500;
 }
 
 .topBar {
@@ -110,11 +168,11 @@
 }
 
 .seriesTitle {
-  font-size: 28px;
+  font-size: 20px;
   font-weight: 800;
   margin-bottom: 5px;
   color: #fff;
-  padding: 0 20px;
+  padding: 0;
   line-height: 1.2;
   margin-top: 0;
 }
@@ -125,21 +183,26 @@
   color: #aaa;
   margin-bottom: 25px;
   line-height: 1.3;
-  padding: 0 20px;
+  padding: 0;
+}
+
+.plotSection {
+  padding: 0;
+  margin-bottom: 5px;
 }
 
 .plotSection h3 {
-  font-size: 15px;
+  font-size: 13px;
   color: #aaa;
-  margin-bottom: 12px;
-  font-weight: 400;
+  margin-bottom: 3px;
+  font-weight: 600;
 }
 
 .plotSection p {
-  font-size: 13px;
-  color: #777;
-  line-height: 1.6;
-  margin-bottom: 25px;
+  font-size: 12px;
+  color: #999;
+  line-height: 1.3;
+  margin-bottom: 0;
 }
 
 .moreText {
@@ -150,24 +213,24 @@
 .tagsRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 30px;
-  padding: 0 20px;
+  gap: 6px;
+  margin-bottom: 5px;
+  padding: 0;
 }
 
 .tag {
   background-color: #1a1a1a;
-  padding: 6px 12px;
+  padding: 3px 8px;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 11px;
   color: #aaa;
 }
 
 .actionRow {
   display: flex;
   justify-content: space-around;
-  margin-bottom: 20px;
-  padding: 0 20px;
+  margin-bottom: 5px;
+  padding: 0;
 }
 
 .actionItem {
@@ -188,25 +251,22 @@
 .divider {
   height: 1px;
   background-color: #222;
-  margin-bottom: 20px;
-}
-
-.plotSection {
-  padding: 0 20px;
+  margin-bottom: 5px;
 }
 
 .episodesSection {
   display: flex;
   flex-direction: column;
+  margin-bottom: 10px;
 }
 
 .episodeTabs {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
-  font-size: 13px;
-  padding: 0 20px;
+  margin-bottom: 8px;
+  font-size: 12px;
+  padding: 0;
 }
 
 .tabGroup {
@@ -217,6 +277,18 @@
 .activeTab {
   color: #fff;
   font-weight: 600;
+  position: relative;
+  padding-bottom: 8px;
+}
+
+.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #ff0000;
 }
 
 .inactiveTab {
@@ -229,44 +301,36 @@
 }
 
 .episodeGridWrapper {
-  overflow-x: auto;
-  scrollbar-width: none;
-  padding: 0 20px;
-  margin-bottom: 20px;
-}
-
-.episodeGridWrapper::-webkit-scrollbar {
-  display: none;
+  overflow-x: hidden;
 }
 
 .episodeGrid {
-  display: flex;
-  gap: 10px;
-  width: max-content;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
 }
 
 .trailerBtn {
   background-color: #222;
   color: #aaa;
-  font-size: 13px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 15px;
+  padding: 0 8px;
   border-radius: 4px;
-  height: 45px;
+  height: 32px;
 }
 
 .gridItem {
-  width: 45px;
-  height: 45px;
+  height: 32px;
   background-color: #1a1a1a;
   border-radius: 4px;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 600;
   text-decoration: none;
   position: relative;
@@ -344,7 +408,8 @@
   align-items: center;
 }
 
-.controlsLeft, .controlsRight {
+.controlsLeft,
+.controlsRight {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -377,37 +442,278 @@
 }
 
 .recommendationSection {
-  padding: 0 20px;
-  margin-top: 10px;
+  padding: 0;
+  margin-top: auto;
+  /* Push to bottom */
+}
+
+/* Force 4 cards per row on desktop player page */
+.recommendationSection :global(.swiper-slide) {
+  width: 103px !important;
+}
+
+/* ============================================================
+   DESKTOP (>=1025px) — fixed player-matched right panel height.
+   ============================================================ */
+@media (min-width: 1025px) {
+
+  .mobileTitleGroup,
+  .mobilePlot,
+  .mobileOnly {
+    display: none !important;
+  }
+
+  /* Lock the whole page to the viewport — no browser scroll */
+  .playerPage {
+    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    overflow: hidden;
+  }
+
+  .layout {
+    height: 100vh;
+    max-width: 1180px;
+    padding: 24px 20px;
+    gap: 48px;
+    align-items: flex-start;
+    box-sizing: border-box;
+  }
+
+  /* Left column uses the exact same height as the right panel */
+  .leftColumn {
+    padding-top: 0;
+    height: min(calc(100vh - 48px), calc(500px * 16 / 9));
+    justify-content: flex-start;
+    flex: 0 0 auto;
+  }
+
+  /* Keep player aspect ratio + cap to available desktop height */
+  .videoContainer {
+    height: 100%;
+    max-height: none;
+    width: auto;
+    max-width: 500px;
+    aspect-ratio: 9 / 16;
+  }
+
+  /* Right column now ends exactly where the player screen ends */
+  .rightColumn {
+    width: 460px;
+    flex: 0 0 460px;
+    height: min(calc(100vh - 48px), calc(500px * 16 / 9));
+    max-height: min(calc(100vh - 48px), calc(500px * 16 / 9));
+    padding-top: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+
+  /* rightTop becomes a real flex container (overrides display:contents) */
+  .rightTop {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  .seriesTitle {
+    font-size: 18px;
+    margin-bottom: 0;
+    line-height: 1.25;
+  }
+
+  .desktopPlot {
+    margin-bottom: 0;
+    flex: 0 0 auto;
+  }
+
+  .desktopPlot h3 {
+    font-size: 12px;
+    margin-bottom: 2px;
+  }
+
+  .desktopPlot p {
+    font-size: 12px;
+    line-height: 1.35;
+  }
+
+  .divider {
+    margin: 4px 0 2px;
+    flex: 0 0 auto;
+  }
+
+  .episodesSection {
+    margin-bottom: 0;
+    gap: 6px;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .episodeTabs {
+    margin-bottom: 4px;
+    flex: 0 0 auto;
+  }
+
+  .activeTab {
+    padding-bottom: 6px;
+  }
+
+  .episodeGridWrapper {
+    flex: 1 1 auto;
+    min-height: 0;
+    max-height: none;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #333 transparent;
+    padding-right: 4px;
+  }
+
+  .episodeGridWrapper::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .episodeGridWrapper::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 3px;
+  }
+
+  .episodeGrid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+  }
+
+  .trailerBtn,
+  .gridItem {
+    height: 30px;
+    font-size: 12px;
+  }
+
+  /* Recommendation stays at the bottom of the same height as the player */
+  .recommendationSection {
+    margin-top: 0;
+    flex: 0 0 auto;
+    min-height: 0;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Match Home Page cards: 9:16, consistent sizing, hover lift */
+  .recommendationSection :global(.swiper-slide) {
+    width: 100px !important;
+  }
+
+  .recommendationSection :global(.swiper-slide img),
+  .recommendationSection :global(.swiper-slide a),
+  .recommendationSection :global(.swiper-slide > div) {
+    border-radius: 8px;
+  }
+
+  .recommendationSection :global(.swiper-slide) {
+    transition: transform 0.25s ease;
+  }
+
+  .recommendationSection :global(.swiper-slide:hover) {
+    transform: translateY(-4px);
+  }
 }
 
 @media (max-width: 1024px) {
+
+  .desktopTitleGroup,
+  .desktopPlot,
+  .desktopOnly {
+    display: none !important;
+  }
+
   .playerPage {
     padding-top: 0;
   }
-  
+
   .layout {
     flex-direction: column;
     align-items: center;
     padding: 0;
     gap: 0;
   }
-  
+
   .leftColumn {
     width: 100%;
     align-items: center;
+    padding-top: 0;
   }
-  
+
   .rightColumn {
     width: 100%;
     padding-top: 15px;
+    height: auto;
+    overflow: visible;
+  }
+
+  /* Reset recommendation card size for mobile */
+  .recommendationSection :global(.swiper-slide) {
+    width: 110px !important;
+  }
+
+  .episodeGridWrapper {
+    overflow-x: auto;
+    scrollbar-width: none;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .episodeGridWrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .episodeGrid {
+    display: flex;
+    width: max-content;
+    gap: 10px;
+  }
+
+  .trailerBtn {
+    height: 45px;
+    padding: 0 15px;
+    font-size: 13px;
+  }
+
+  .gridItem {
+    width: 45px;
+    height: 45px;
+    font-size: 14px;
   }
 
   .videoContainer {
     width: calc(100% - 20px);
-    max-width: 100%; /* Ensure mobile doesn't get constrained by desktop max-width */
+    max-width: 100%;
     margin: 0 auto;
     border-radius: 12px;
-    max-height: 65vh;
+  }
+
+  .plotSection {
+    padding: 0 20px;
+    margin-bottom: 0;
+  }
+
+  .recommendationSection {
+    padding: 0 20px;
+    margin-top: 10px;
+  }
+
+  .mobileTitleGroup {
+    padding: 0 20px;
+  }
+
+  .episodeTabs {
+    padding: 0 20px;
   }
 }

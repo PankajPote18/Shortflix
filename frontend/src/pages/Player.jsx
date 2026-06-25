@@ -16,12 +16,12 @@ const Player = () => {
   const [currentEpisode, setCurrentEpisode] = useState(null);
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(true);
-  
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
-  
+
   const { saveProgress } = useWatchContext();
 
   useEffect(() => {
@@ -36,9 +36,9 @@ const Player = () => {
         setSeries(seriesRes.data);
         setEpisodes(episodesRes.data);
         setRecommendations(homeRes.data.trending || []);
-        
+
         const targetEpisodeId = episodeId ? parseInt(episodeId) : null;
-        const ep = targetEpisodeId 
+        const ep = targetEpisodeId
           ? episodesRes.data.find(e => e.id === targetEpisodeId)
           : episodesRes.data[0];
 
@@ -60,8 +60,30 @@ const Player = () => {
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.load();
-      setIsPlaying(false);
+      videoRef.current.currentTime = 0;
       setCurrentTime(0);
+
+      // Attempt autoplay
+      const playPromise = videoRef.current.play();
+      if (playPromise !== undefined) {
+        playPromise
+          .then(() => {
+            setIsPlaying(true);
+          })
+          .catch(() => {
+            // Autoplay with sound was blocked, fallback to muted autoplay
+            videoRef.current.muted = true;
+            setIsMuted(true);
+            videoRef.current.play()
+              .then(() => {
+                setIsPlaying(true);
+              })
+              .catch((err) => {
+                console.error('Autoplay completely blocked:', err);
+                setIsPlaying(false);
+              });
+          });
+      }
     }
   }, [currentEpisode]);
 
@@ -79,7 +101,7 @@ const Player = () => {
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       setCurrentTime(videoRef.current.currentTime);
-      
+
       // Save progress every 5 seconds
       if (Math.floor(videoRef.current.currentTime) % 5 === 0 && series && currentEpisode && videoRef.current.duration) {
         const percentage = (videoRef.current.currentTime / videoRef.current.duration) * 100;
@@ -128,21 +150,26 @@ const Player = () => {
     return `${m}:${s}`;
   };
 
-  if (loading || !currentEpisode) return <div className="container" style={{paddingTop: '100px'}}>Loading video...</div>;
+  if (loading || !currentEpisode) return <div className="container" style={{ paddingTop: '100px' }}>Loading video...</div>;
 
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
     <div className={styles.playerPage}>
-      <div className={styles.topBar}>
+      {/* Mobile Top Bar */}
+      <div className={`${styles.topBar} ${styles.mobileOnly}`}>
         <button onClick={() => navigate(-1)} className={styles.backBtn}>
-          <ArrowLeft size={20} />
+          <ArrowLeft size={24} />
         </button>
       </div>
 
       <div className={styles.layout}>
         {/* Left: Video Player */}
         <div className={styles.leftColumn}>
+          <button onClick={() => navigate(-1)} className={`${styles.floatingBackBtn} ${styles.desktopOnly}`}>
+            <ArrowLeft size={24} />
+          </button>
+
           <div className={styles.videoContainer} onClick={togglePlay} ref={containerRef}>
             <video
               ref={videoRef}
@@ -160,7 +187,7 @@ const Player = () => {
                 </div>
               </div>
             )}
-            
+
             {/* Custom Controls */}
             <div className={styles.customControls} onClick={(e) => e.stopPropagation()}>
               <div className={styles.progressBarContainer}>
@@ -194,53 +221,74 @@ const Player = () => {
 
         {/* Right: Sidebar */}
         <div className={styles.rightColumn}>
-          <h1 className={styles.seriesTitle}>{series?.title}</h1>
-          <h2 className={styles.episodeTitle}>
-            Episode {currentEpisode.episode_number} - Full Movie
-          </h2>
-          
-          <div className={styles.episodesSection}>
-            <div className={styles.episodeTabs}>
-              <div className={styles.tabGroup}>
-                <span className={styles.activeTab}>0-49</span>
-                <span className={styles.inactiveTab}>50-66</span>
-              </div>
-              <span className={styles.allEpisodes}>All Episodes &gt;</span>
+          {/* Top block: title + plot + episodes (compact on desktop) */}
+          <div className={styles.rightTop}>
+            <div className={styles.desktopTitleGroup}>
+              <h1 className={styles.seriesTitle}>
+                Episode {currentEpisode.episode_number} - {series?.title} Full Movie
+              </h1>
             </div>
-            
-            <div className={styles.episodeGridWrapper}>
-              <div className={styles.episodeGrid}>
-                <div className={styles.trailerBtn}>Trailer</div>
-                {episodes.map((ep) => {
-                  const isActive = currentEpisode.id === ep.id;
-                  return (
-                    <Link 
-                      key={ep.id} 
-                      to={`/watch/${seriesId}/${ep.id}`}
-                      className={`${styles.gridItem} ${isActive ? styles.activeGridItem : ''}`}
-                    >
-                      {ep.episode_number}
-                      {isActive && <div className={styles.equalizer}><BarChart2 size={12} color="white" /></div>}
-                      {ep.is_premium && <Lock size={10} className={styles.lockIcon} fill="red" color="red" />}
-                    </Link>
-                  );
-                })}
+            <div className={styles.mobileTitleGroup}>
+              <h1 className={styles.seriesTitle}>{series?.title}</h1>
+              <h2 className={styles.episodeTitle}>
+                Episode {currentEpisode.episode_number} - Full Movie
+              </h2>
+            </div>
+
+            <div className={`${styles.plotSection} ${styles.desktopPlot}`}>
+              <h3>Plot of Episode {currentEpisode.episode_number}</h3>
+              <p>
+                {currentEpisode.description?.length > 100
+                  ? `${currentEpisode.description.substring(0, 100)}... `
+                  : currentEpisode.description}
+                <span className={styles.moreText}>More</span>
+              </p>
+            </div>
+
+            <div className={`${styles.divider} ${styles.desktopOnly}`}></div>
+
+            <div className={styles.episodesSection}>
+              <div className={styles.episodeTabs}>
+                <div className={styles.tabGroup}>
+                  <span className={styles.activeTab}>0-49</span>
+                  <span className={styles.inactiveTab}>50-57</span>
+                </div>
+                <span className={styles.allEpisodes}>All Episodes &gt;</span>
+              </div>
+
+              <div className={styles.episodeGridWrapper}>
+                <div className={styles.episodeGrid}>
+                  <div className={styles.trailerBtn}>Trailer</div>
+                  {episodes.map((ep) => {
+                    const isActive = currentEpisode.id === ep.id;
+                    return (
+                      <Link
+                        key={ep.id}
+                        to={`/watch/${seriesId}/${ep.id}`}
+                        className={`${styles.gridItem} ${isActive ? styles.activeGridItem : ''}`}
+                      >
+                        {ep.episode_number}
+                        {isActive && <div className={styles.equalizer}><BarChart2 size={12} color="white" /></div>}
+                        {ep.is_premium && <Lock size={10} className={styles.lockIcon} fill="red" color="red" />}
+                      </Link>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
 
-          <div className={styles.divider}></div>
-
-          <div className={styles.plotSection}>
+          {/* Mobile plot falls below episodes */}
+          <div className={`${styles.plotSection} ${styles.mobilePlot}`}>
             <h3>Plot of Episode {currentEpisode.episode_number}</h3>
             <p>
-              {currentEpisode.description?.length > 100 
-                ? `${currentEpisode.description.substring(0, 100)}... ` 
+              {currentEpisode.description?.length > 100
+                ? `${currentEpisode.description.substring(0, 100)}... `
                 : currentEpisode.description}
               <span className={styles.moreText}>More</span>
             </p>
           </div>
-          
+
           <div className={styles.recommendationSection}>
             <Row title="Recommendation for you" data={recommendations} />
           </div>

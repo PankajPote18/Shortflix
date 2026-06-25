@@ -1,0 +1,225 @@
+/* Explore Page Layout */
+.explorePage {
+  background-color: #000;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* 
+  Feed Container with Snap Scrolling 
+  Adjust height to account for BottomNav on mobile. 
+  BottomNav is usually ~60px tall. Let's use calc(100vh - 60px) on mobile
+  and 100vh on desktop if there's no bottom nav.
+*/
+.feedContainer {
+  height: 100vh; /* Will adjust with media query */
+  width: 100%;
+  max-width: 500px; /* Portrait aspect ratio max width */
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Hide scrollbar Firefox */
+  position: relative;
+  background-color: #111;
+  display: flex;
+  flex-direction: column;
+}
+
+.feedContainer::-webkit-scrollbar {
+  display: none; /* Hide scrollbar WebKit */
+}
+
+/* Individual Video Card container */
+.videoCardContainer {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background-color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 100%;
+}
+
+/* Video Element */
+.videoElement {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Loader */
+.loaderContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgba(255, 255, 255, 0.7);
+  z-index: 5;
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Play Icon Overlay (When paused) */
+.playIconOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  padding: 20px;
+  cursor: pointer;
+  z-index: 10;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
+  50% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.8; }
+}
+
+/* Dark gradient overlay for text readability */
+.gradientOverlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Mute Button */
+.muteBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Video Overlay UI (Bottom Left) */
+.overlayContainer {
+  position: absolute;
+  bottom: 20px;
+  left: 15px;
+  right: 70px; /* Space for action buttons */
+  z-index: 20;
+  color: white;
+}
+
+.seriesTitle {
+  font-size: 18px;
+  font-weight: 800;
+  margin: 0 0 5px 0;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+}
+
+.episodeTitle {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: #ddd;
+}
+
+.genre {
+  font-size: 12px;
+  background-color: rgba(255, 51, 102, 0.8);
+  display: inline-block;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin: 0 0 8px 0;
+}
+
+.description {
+  font-size: 13px;
+  line-height: 1.4;
+  margin: 0;
+  color: #eee;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Action Buttons (Bottom Right) */
+.actionButtonsContainer {
+  position: absolute;
+  bottom: 20px;
+  right: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  z-index: 20;
+  align-items: center;
+}
+
+.actionBtn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  padding: 0;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+.actionBtn span {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Progress Bar (Bottom Edge) */
+.progressBarContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.2);
+  z-index: 30;
+}
+
+.progressBarFill {
+  height: 100%;
+  background-color: #ff3366;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .feedContainer {
+    /* Accounting for BottomNav which is approx 60px */
+    height: calc(100vh - 60px);
+    max-width: 100%;
+  }
+}

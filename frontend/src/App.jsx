@@ -6,6 +6,7 @@ import BottomNav from './components/BottomNav';
 import Home from './pages/Home';
 import Settings from './pages/Settings';
 import Player from './pages/Player';
+import Explore from './pages/Explore';
 import { WatchProvider } from './context/WatchContext';
 import './styles/global.css';
 
@@ -16,9 +17,11 @@ function App() {
         <Routes>
           {/* Routes with Header and Footer */}
           <Route path="/" element={<><Header /><Home /><Footer /></>} />
-          
           {/* Settings Route */}
           <Route path="/settings" element={<Settings />} />
+
+          {/* Explore Route (Full screen feed without Header) */}
+          <Route path="/explore" element={<Explore />} />
 
           {/* Player Routes without Header */}
           <Route path="/watch/:seriesId" element={<Player />} />
