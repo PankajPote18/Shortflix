@@ -13,6 +13,7 @@ import MySpace from './pages/MySpace';
 import { WatchProvider } from './context/WatchContext';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
+import ScrollToTop from './components/ScrollToTop';
 import './styles/global.css';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
     <AuthProvider>
       <WatchProvider>
         <Router>
+          <ScrollToTop />
           <Routes>
             {/* Public Routes with Header and Footer */}
             <Route path="/" element={<><Header /><Home /><Footer /></>} />
