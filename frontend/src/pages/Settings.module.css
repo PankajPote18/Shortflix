@@ -1,7 +1,8 @@
 .settingsPage {
   min-height: 100vh;
   background-color: #050505;
-  padding: 40px 20px 100px; /* bottom padding for the nav bar */
+  padding: 120px 20px 100px;
+  /* bottom padding for the nav bar */
   display: flex;
   justify-content: center;
 }
@@ -58,12 +59,13 @@
 }
 
 .icon {
-  color: #00bcd4; /* Use cyan by default, or another cool color to contrast with pink if desired. The prompt said "keep the color in a shade of pink". So let's make default icons white or light gray, and highlighted ones pink */
+  color: #00bcd4;
+  /* Use cyan by default, or another cool color to contrast with pink if desired. The prompt said "keep the color in a shade of pink". So let's make default icons white or light gray, and highlighted ones pink */
 }
 
 /* Let's make all default icons slightly tinted white to match screenshot */
 .item:not(.highlight) .icon {
-  color: #00bcd4; 
+  color: #00bcd4;
 }
 
 /* Wait, the prompt said "keep the color in a shade of pink". This might mean ALL colors that were blue in the screenshot should be pink! */

@@ -47,7 +47,7 @@
 .videoContainer {
   position: relative;
   width: 100%;
-  max-width: 500px;
+  max-width: 400px;
   aspect-ratio: 9 / 16;
   background-color: #111;
   border-radius: 12px;
@@ -648,7 +648,14 @@
   .leftColumn {
     width: 100%;
     align-items: center;
-    padding-top: 0;
+    padding-top: 10px;
+  }
+
+  .videoContainer {
+    width: 85%;
+    max-width: 360px;
+    margin: 0 auto;
+    border-radius: 16px;
   }
 
   .rightColumn {

@@ -180,7 +180,7 @@
   }
   
   .heroContent {
-    padding-bottom: 50px; /* Adjusted padding to fit new height */
+    padding-bottom: 60px; /* Increased padding slightly to move button up */
   }
   
   .heroTitle {
@@ -195,6 +195,7 @@
   .playBtn {
     padding: 8px 18px;
     font-size: 13px;
+    width: fit-content; /* Ensure the button only takes the size of its content */
   }
 
   .swiperButtonPrev,

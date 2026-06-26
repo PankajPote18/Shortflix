@@ -3,6 +3,9 @@ const router = express.Router();
 const { Op } = require('sequelize');
 const { Category, Series, Episode } = require('../models');
 
+// Mount routes
+router.use('/auth', require('./auth'));
+
 // GET /api/categories
 router.get('/categories', async (req, res) => {
   try {

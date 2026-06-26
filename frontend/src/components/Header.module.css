@@ -86,20 +86,47 @@
   color: var(--text-primary);
 }
 
-.loginBtn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  background: var(--accent-color);
-  color: #fff;
-  border-radius: 50%;
+.loginBtnLink {
+  background-color: var(--accent-color);
+  color: white;
+  padding: 8px 20px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-decoration: none;
   transition: opacity var(--transition-speed);
 }
 
-.loginBtn:hover {
+.loginBtnLink:hover {
   opacity: 0.8;
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.avatarSmall {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-color);
+}
+
+.logoutBtn {
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-secondary);
+  padding: 6px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all var(--transition-speed);
+}
+
+.logoutBtn:hover {
+  color: white;
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .mobileMenuBtn {
@@ -110,21 +137,18 @@
 @media (max-width: 768px) {
   .headerContainer {
     gap: 10px;
+    justify-content: flex-start; /* Align logo to the extreme left */
   }
   
   .left, .right {
     gap: 10px;
   }
 
+  .nav, .right {
+    display: none; /* Hide top navigation on mobile, use BottomNav instead */
+  }
+
   .logo {
-    font-size: 20px;
-  }
-  
-  .searchInput {
-    width: 100px;
-  }
-  
-  .searchInput:focus {
-    width: 130px;
+    font-size: 24px;
   }
 }

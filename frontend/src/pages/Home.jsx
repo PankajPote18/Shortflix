@@ -61,7 +61,7 @@ const Home = () => {
                     <div className={styles.heroGradient}></div>
                   </div>
                   <div className={`container ${styles.heroContent}`}>
-                    <h1 className={styles.heroTitle}>{item.title}</h1>
+
                     <div className={styles.heroActions}>
                       <Link to={`/watch/${item.id}`} className={styles.playBtn}>
                         <Play size={20} fill="currentColor" /> Watch Now

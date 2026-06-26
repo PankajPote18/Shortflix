@@ -1,10 +1,12 @@
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
-import { Home, Compass, Settings } from 'lucide-react';
+import { Home, Compass, User, LogIn } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import styles from './BottomNav.module.css';
 
 const BottomNav = () => {
   const location = useLocation();
+  const { isAuthenticated } = useAuth();
 
   // Hide bottom nav on player pages
   if (location.pathname.startsWith('/watch')) return null;
@@ -26,13 +28,24 @@ const BottomNav = () => {
         <Compass size={22} />
         <span>Explore</span>
       </NavLink>
-      <NavLink
-        to="/settings"
-        className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
-      >
-        <Settings size={22} />
-        <span>Settings</span>
-      </NavLink>
+      
+      {isAuthenticated ? (
+        <NavLink
+          to="/my-space"
+          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
+        >
+          <User size={22} />
+          <span>My Space</span>
+        </NavLink>
+      ) : (
+        <NavLink
+          to="/login"
+          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
+        >
+          <LogIn size={22} />
+          <span>Login</span>
+        </NavLink>
+      )}
     </nav>
   );
 };

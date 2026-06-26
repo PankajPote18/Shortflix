@@ -1,0 +1,147 @@
+.mySpacePage {
+  min-height: calc(100vh - 60px);
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  padding: 120px 20px 100px; /* Increased top padding to prevent header overlap */
+}
+
+.container {
+  max-width: 500px; /* Reduced width for a sleeker look */
+  margin: 0 auto;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 40px;
+  position: relative;
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--accent-color);
+}
+
+.userInfo h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.email {
+  color: var(--text-secondary);
+  font-size: 15px;
+  margin-bottom: 4px;
+}
+
+.joined {
+  color: #888;
+  font-size: 13px;
+}
+
+.settingsBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 8px;
+}
+
+.settingsBtn:hover {
+  color: var(--text-primary);
+}
+
+.actionList {
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  margin-bottom: 40px;
+}
+
+.actionItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.actionItem:last-child {
+  border-bottom: none;
+}
+
+.actionItem:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+.actionLeft {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.actionIcon {
+  color: var(--accent-color);
+}
+
+.chevron {
+  color: var(--text-secondary);
+}
+
+.section {
+  margin-bottom: 30px;
+}
+
+.section h3 {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.placeholderBox {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px dashed rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+
+.logoutBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  background-color: rgba(255, 51, 102, 0.1);
+  color: #ff3366;
+  border: 1px solid rgba(255, 51, 102, 0.2);
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 20px;
+}
+
+.logoutBtn:hover {
+  background-color: rgba(255, 51, 102, 0.2);
+}
