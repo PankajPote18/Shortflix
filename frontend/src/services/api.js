@@ -1,7 +1,17 @@
 import axios from 'axios';
 
+let apiURL = import.meta.env.VITE_API_URL || 'https://shortflix-backend.onrender.com/api';
+// Strip trailing slash if present
+if (apiURL.endsWith('/')) {
+  apiURL = apiURL.slice(0, -1);
+}
+// Append /api if missing
+if (!apiURL.endsWith('/api')) {
+  apiURL += '/api';
+}
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || 'https://shortflix-backend.onrender.com/api',
+  baseURL: apiURL,
   headers: {
     'Content-Type': 'application/json',
   },
