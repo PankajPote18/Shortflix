@@ -51,13 +51,14 @@
   height: 100%;
   background: linear-gradient(
     to right,
-    rgba(15, 15, 15, 0.9) 0%,
-    rgba(15, 15, 15, 0.4) 50%,
+    rgba(10, 10, 10, 0.95) 0%,
+    rgba(10, 10, 10, 0.5) 50%,
     transparent 100%
   ), linear-gradient(
     to top,
-    rgba(15, 15, 15, 1) 0%,
-    transparent 20%
+    rgba(10, 10, 10, 1) 0%,
+    rgba(10, 10, 10, 0.2) 40%,
+    transparent 100%
   );
 }
 
@@ -68,45 +69,49 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  padding-bottom: 180px;
+  padding-bottom: 160px;
 }
 
 .heroTitle {
-  font-size: 48px;
+  font-size: 56px;
   font-weight: 800;
-  margin-bottom: 15px;
+  margin-bottom: var(--space-md);
   max-width: 800px;
   line-height: 1.1;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 .heroDesc {
   font-size: 18px;
   color: var(--text-secondary);
   max-width: 600px;
-  margin-bottom: 30px;
+  margin-bottom: var(--space-xl);
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .heroActions {
   display: flex;
-  gap: 15px;
+  gap: var(--space-md);
 }
 
 .playBtn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  background-color: #ffffff;
-  color: #000000;
-  padding: 12px 40px;
-  border-radius: 4px;
+  gap: 10px;
+  background-color: var(--accent-color);
+  color: #ffffff;
+  padding: 14px 48px;
+  border-radius: var(--border-radius-md);
   font-size: 18px;
   font-weight: 700;
-  transition: opacity var(--transition-speed), transform var(--transition-speed);
+  transition: all var(--transition-speed);
+  box-shadow: 0 4px 15px rgba(255, 30, 86, 0.4);
 }
 
 .playBtn:hover {
-  opacity: 0.9;
-  transform: scale(1.05);
+  background-color: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 30, 86, 0.6);
 }
 
 .swiperButtonPrev,

@@ -1,19 +1,19 @@
 .authContainer {
-  min-height: calc(100vh - 120px);
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: var(--bg-color);
-  padding: 40px 20px;
+  padding: 4vh 20px;
 }
 
 .authCard {
   background-color: var(--card-bg);
   width: 100%;
   max-width: 450px;
-  border-radius: 16px;
-  padding: 40px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-2xl);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -189,11 +189,6 @@
 }
 
 @media (max-width: 480px) {
-  .authContainer {
-    padding: 100px 15px 40px;
-    align-items: flex-start;
-  }
-  
   .authCard {
     padding: 30px 20px;
   }

@@ -1,18 +1,19 @@
 .rowContainer {
-  margin-bottom: 40px;
+  margin-bottom: var(--space-2xl);
 }
 
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: var(--space-md);
 }
 
 .title {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-primary);
+  margin-bottom: 0;
 }
 
 .viewAll {

@@ -8,8 +8,14 @@ const BottomNav = () => {
   const location = useLocation();
   const { isAuthenticated } = useAuth();
 
-  // Hide bottom nav on player pages
-  if (location.pathname.startsWith('/watch')) return null;
+  // Hide bottom nav on player and auth pages
+  if (
+    location.pathname.startsWith('/watch') || 
+    location.pathname === '/login' || 
+    location.pathname === '/register'
+  ) {
+    return null;
+  }
 
   return (
     <nav className={styles.bottomNav}>
@@ -29,23 +35,14 @@ const BottomNav = () => {
         <span>Explore</span>
       </NavLink>
       
-      {isAuthenticated ? (
-        <NavLink
-          to="/my-space"
-          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
-        >
-          <User size={22} />
-          <span>My Space</span>
-        </NavLink>
-      ) : (
-        <NavLink
-          to="/login"
-          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
-        >
-          <LogIn size={22} />
-          <span>Login</span>
-        </NavLink>
-      )}
+      {/* Always show My Space instead of Login; ProtectedRoute handles the redirect */}
+      <NavLink
+        to="/my-space"
+        className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
+      >
+        <User size={22} />
+        <span>My Space</span>
+      </NavLink>
     </nav>
   );
 };

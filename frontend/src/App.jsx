@@ -23,12 +23,16 @@ function App() {
         <Router>
           <ScrollToTop />
           <Routes>
-            {/* Public Routes with Header and Footer */}
-            <Route path="/" element={<><Header /><Home /><Footer /></>} />
-            <Route path="/login" element={<><Header /><Login /><Footer /></>} />
-            <Route path="/register" element={<><Header /><Register /><Footer /></>} />
+            {/* Public Routes without Header and Footer */}
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
 
             {/* Protected Routes with Header and Footer */}
+            <Route path="/" element={
+              <ProtectedRoute>
+                <><Header /><Home /><Footer /></>
+              </ProtectedRoute>
+            } />
             <Route path="/settings" element={
               <ProtectedRoute>
                 <><Header /><Settings /><Footer /></>
@@ -41,11 +45,23 @@ function App() {
             } />
 
             {/* Explore Route (Full screen feed without Header) */}
-            <Route path="/explore" element={<Explore />} />
+            <Route path="/explore" element={
+              <ProtectedRoute>
+                <Explore />
+              </ProtectedRoute>
+            } />
 
             {/* Player Routes without Header */}
-            <Route path="/watch/:seriesId" element={<Player />} />
-            <Route path="/watch/:seriesId/:episodeId" element={<Player />} />
+            <Route path="/watch/:seriesId" element={
+              <ProtectedRoute>
+                <Player />
+              </ProtectedRoute>
+            } />
+            <Route path="/watch/:seriesId/:episodeId" element={
+              <ProtectedRoute>
+                <Player />
+              </ProtectedRoute>
+            } />
           </Routes>
           <BottomNav />
         </Router>

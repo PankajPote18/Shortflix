@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import styles from './Auth.module.css';
@@ -12,8 +12,17 @@ const Login = () => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || '/';
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, from]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +37,7 @@ const Login = () => {
     const result = await login(email, password, rememberMe);
     
     if (result.success) {
-      navigate('/');
+      navigate(from, { replace: true });
     } else {
       setError(result.message);
       setLoading(false);

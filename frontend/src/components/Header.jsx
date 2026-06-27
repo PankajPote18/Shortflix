@@ -33,9 +33,7 @@ const Header = () => {
           </nav>
         </div>
         <div className={styles.right}>
-          {!isAuthenticated && (
-            <Link to="/login" className={styles.loginBtnLink}>Login</Link>
-          )}
+          {/* Login button removed completely */}
         </div>
       </div>
     </header>
