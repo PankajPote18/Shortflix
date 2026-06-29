@@ -105,62 +105,125 @@
   z-index: 10;
 }
 
-/* Mute Button */
-.muteBtn {
+/* Top Navigation Bar */
+.topNav {
   position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(0, 0, 0, 0.4);
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  z-index: 20;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%);
+  color: white;
+}
+
+.topLeft {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.backBtn {
+  background: none;
   border: none;
   color: white;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
   display: flex;
-  justify-content: center;
   align-items: center;
   cursor: pointer;
+  padding: 0;
+}
+
+.epIndicator {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.topRight {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.speedBtn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0;
+}
+
+.moreBtn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Subtitle Overlay Placeholder (Optional, static) */
+.subtitleContainer {
+  position: absolute;
+  bottom: 120px;
+  left: 15px;
+  right: 70px;
+  text-align: center;
   z-index: 20;
+  pointer-events: none;
+}
+
+.subtitleText {
+  font-size: 18px;
+  font-weight: 700;
+  color: white;
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.8), -1px -1px 4px rgba(0,0,0,0.8);
+  margin: 0;
 }
 
 /* Video Overlay UI (Bottom Left) */
 .overlayContainer {
   position: absolute;
-  bottom: 40px; /* Push up so it isn't cut off */
+  bottom: 25px; /* Push down to sit just above progress bar */
   left: 15px;
-  right: 70px; /* Space for action buttons */
+  right: 70px;
   z-index: 20;
   color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.miniIcon {
+  margin-bottom: 2px;
+  opacity: 0.9;
 }
 
 .seriesTitle {
-  font-size: 18px;
-  font-weight: 800;
-  margin: 0 0 5px 0;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-}
-
-.episodeTitle {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0 0 8px 0;
-  color: #ddd;
-}
-
-.genre {
-  font-size: 12px;
-  background-color: rgba(255, 51, 102, 0.8);
-  display: inline-block;
-  padding: 3px 8px;
-  border-radius: 4px;
-  margin: 0 0 8px 0;
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .description {
-  font-size: 13px;
-  line-height: 1.4;
+  font-size: 12px;
+  line-height: 1.3;
   margin: 0;
-  color: #eee;
+  color: #ddd;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -170,11 +233,11 @@
 /* Action Buttons (Bottom Right) */
 .actionButtonsContainer {
   position: absolute;
-  bottom: 40px; /* Push up */
+  bottom: 25px;
   right: 15px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   z-index: 20;
   align-items: center;
 }
@@ -186,15 +249,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 2px;
   cursor: pointer;
   padding: 0;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 1px 2px rgba(0,0,0,0.6));
 }
 
 .actionBtn span {
   font-size: 11px;
   font-weight: 600;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
 }
 
 /* Progress Bar (Bottom Edge) */
@@ -210,15 +274,28 @@
 
 .progressBarFill {
   height: 100%;
-  background-color: #ff3366;
+  background-color: #fff; /* Updated to white to match image */
   width: 0%;
   transition: width 0.1s linear;
+  position: relative;
+}
+
+/* Add a glowing dot to the end of progress bar */
+.progressBarFill::after {
+  content: '';
+  position: absolute;
+  right: -2px;
+  top: -2px;
+  width: 8px;
+  height: 8px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 4px rgba(255,255,255,0.8);
 }
 
 /* Responsive adjustments */
 @media (max-width: 1024px) {
   .feedContainer {
-    /* Accounting for BottomNav which is approx 60px */
     height: calc(100vh - 60px);
     max-width: 100%;
   }

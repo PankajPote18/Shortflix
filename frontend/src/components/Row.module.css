@@ -35,19 +35,10 @@
 }
 
 .slide {
-  width: 110px; /* Mobile width to show 3 cards */
-}
-
-@media (min-width: 576px) {
-  .slide { width: 130px; }
-}
-
-@media (min-width: 768px) {
-  .slide { width: 160px; }
-}
-
-@media (min-width: 1024px) {
-  .slide { width: 180px; }
+  width: 160px; /* Fixed width */
+  min-width: 160px;
+  max-width: 160px;
+  flex-shrink: 0; /* Prevent flex shrinking / overlapping */
 }
 
 /* Skeleton Layout */
@@ -59,17 +50,17 @@
 
 .skeletonSlide {
   flex-shrink: 0;
-  width: 140px;
+  width: 160px; /* Fixed width */
 }
 
-@media (min-width: 576px) {
-  .skeletonSlide { width: 160px; }
-}
-
-@media (min-width: 768px) {
-  .skeletonSlide { width: 180px; }
-}
-
-@media (min-width: 1024px) {
-  .skeletonSlide { width: 200px; }
+@media (max-width: 480px) {
+  .slide, .skeletonSlide {
+    width: 96px;
+  }
+  .title {
+    font-size: 16px;
+  }
+  .viewAll {
+    font-size: 13px;
+  }
 }

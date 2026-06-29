@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Play, Pause, Heart, Star, Share, Lock, BarChart2, SkipForward, Volume2, VolumeX, Maximize } from 'lucide-react';
+import { ArrowLeft, Play, Pause, Heart, Star, Share, Lock, BarChart2, SkipForward, SkipBack, Volume2, VolumeX, Maximize, Bookmark, Send } from 'lucide-react';
 import { getSeriesById, getEpisodesBySeriesId, getHomeData } from '../services/api';
 import Row from '../components/Row';
 import { useWatchContext } from '../context/WatchContext';
@@ -72,16 +72,18 @@ const Player = () => {
           })
           .catch(() => {
             // Autoplay with sound was blocked, fallback to muted autoplay
-            videoRef.current.muted = true;
-            setIsMuted(true);
-            videoRef.current.play()
-              .then(() => {
-                setIsPlaying(true);
-              })
-              .catch((err) => {
-                console.error('Autoplay completely blocked:', err);
-                setIsPlaying(false);
-              });
+            if (videoRef.current) {
+              videoRef.current.muted = true;
+              setIsMuted(true);
+              videoRef.current.play()
+                .then(() => {
+                  setIsPlaying(true);
+                })
+                .catch((err) => {
+                  console.error('Autoplay completely blocked:', err);
+                  setIsPlaying(false);
+                });
+            }
           });
       }
     }
@@ -121,6 +123,14 @@ const Player = () => {
     const currentIndex = episodes.findIndex(e => e.id === currentEpisode.id);
     if (currentIndex < episodes.length - 1) {
       navigate(`/watch/${seriesId}/${episodes[currentIndex + 1].id}`);
+    }
+  };
+
+  const handlePrev = (e) => {
+    if (e) e.stopPropagation();
+    const currentIndex = episodes.findIndex(e => e.id === currentEpisode.id);
+    if (currentIndex > 0) {
+      navigate(`/watch/${seriesId}/${episodes[currentIndex - 1].id}`);
     }
   };
 
@@ -188,32 +198,56 @@ const Player = () => {
               </div>
             )}
 
-            {/* Custom Controls */}
+            {/* Custom Controls (Mobile-style overlay) */}
             <div className={styles.customControls} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.overlayContent}>
+                {/* Bottom Left Area */}
+                <div className={styles.overlayLeft}>
+                  <div className={styles.trailerBadge}>Trailer</div>
+                  <h1 className={styles.overlayTitle}>{series?.title || 'Loading...'}</h1>
+                  <button className={styles.watchBtn} onClick={togglePlay}>
+                    <Play size={16} fill="currentColor" className={styles.watchBtnIcon} />
+                    Watch. Total {episodes.length} Episodes
+                  </button>
+                </div>
+
+                {/* Bottom Right Sidebar */}
+                <div className={styles.overlayRight}>
+                  <button className={styles.actionBtn}>
+                    <Bookmark size={26} />
+                    <span>Wishlist</span>
+                  </button>
+                  <button className={styles.actionBtn}>
+                    <Send size={26} />
+                    <span>Share</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Extra Controls Row */}
+              <div className={styles.extraControls}>
+                <span className={styles.timeDisplay}>
+                  {formatTime(currentTime)} / {formatTime(duration)}
+                </span>
+                <div className={styles.extraControlsIcons}>
+                  <button className={styles.utilBtn} onClick={handlePrev}>
+                    <SkipBack size={18} />
+                  </button>
+                  <button className={styles.utilBtn} onClick={handleNext}>
+                    <SkipForward size={18} />
+                  </button>
+                  <button className={styles.utilBtn} onClick={toggleMute}>
+                    {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                  </button>
+                  <button className={styles.utilBtn} onClick={toggleFullscreen}>
+                    <Maximize size={18} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
               <div className={styles.progressBarContainer}>
                 <div className={styles.progressBar} style={{ width: `${progressPercentage}%` }}></div>
-              </div>
-              <div className={styles.controlsRow}>
-                <div className={styles.controlsLeft}>
-                  <button className={styles.controlBtn} onClick={togglePlay}>
-                    {isPlaying ? <Pause size={20} fill="currentColor" /> : <Play size={20} fill="currentColor" />}
-                  </button>
-                  <button className={styles.controlBtn} onClick={handleNext}>
-                    <SkipForward size={20} fill="currentColor" />
-                  </button>
-                  <span className={styles.timeDisplay}>
-                    {formatTime(currentTime)} / {formatTime(duration)}
-                  </span>
-                </div>
-                <div className={styles.controlsRight}>
-                  <span className={styles.resolution}>1080P</span>
-                  <button className={styles.controlBtn} onClick={toggleMute}>
-                    {isMuted ? <VolumeX size={20} /> : <Volume2 size={20} />}
-                  </button>
-                  <button className={styles.controlBtn} onClick={toggleFullscreen}>
-                    <Maximize size={20} />
-                  </button>
-                </div>
               </div>
             </div>
           </div>
@@ -227,6 +261,11 @@ const Player = () => {
               <h1 className={styles.seriesTitle}>
                 Episode {currentEpisode.episode_number} - {series?.title} Full Movie
               </h1>
+              {series && (
+                <p className={styles.dramaAlias}>
+                  Drama Alias: {series.genre || 'My mate betrayed me'}...
+                </p>
+              )}
             </div>
             <div className={styles.mobileTitleGroup}>
               <h1 className={styles.seriesTitle}>{series?.title}</h1>
@@ -258,7 +297,6 @@ const Player = () => {
 
               <div className={styles.episodeGridWrapper}>
                 <div className={styles.episodeGrid}>
-                  <div className={styles.trailerBtn}>Trailer</div>
                   {episodes.map((ep) => {
                     const isActive = currentEpisode.id === ep.id;
                     return (
@@ -289,10 +327,10 @@ const Player = () => {
             </p>
           </div>
 
+          {/* Recommendations at bottom of right column */}
           <div className={styles.recommendationSection}>
             <Row title="Recommendation for you" data={recommendations} />
           </div>
-
         </div>
       </div>
     </div>

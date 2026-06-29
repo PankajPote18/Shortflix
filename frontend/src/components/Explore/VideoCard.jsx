@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Play, Volume2, VolumeX, Loader } from 'lucide-react';
+import { Play, Loader, ChevronLeft, MoreVertical, Gauge } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import VideoOverlay from './VideoOverlay';
 import ActionButtons from './ActionButtons';
 import ProgressBar from './ProgressBar';
@@ -8,6 +9,7 @@ import styles from '../../pages/Explore.module.css';
 const VideoCard = ({ video }) => {
   const containerRef = useRef(null);
   const videoRef = useRef(null);
+  const navigate = useNavigate();
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
@@ -23,7 +25,6 @@ const VideoCard = ({ video }) => {
     const handleIntersect = (entries) => {
       const [entry] = entries;
       if (entry.isIntersecting) {
-        // Video came into view, play it
         if (videoRef.current) {
           videoRef.current.currentTime = 0;
           const playPromise = videoRef.current.play();
@@ -38,7 +39,6 @@ const VideoCard = ({ video }) => {
           }
         }
       } else {
-        // Video went out of view, pause it
         if (videoRef.current) {
           videoRef.current.pause();
           setIsPlaying(false);
@@ -71,12 +71,6 @@ const VideoCard = ({ video }) => {
     }
   };
 
-  const toggleMute = (e) => {
-    e.stopPropagation();
-    videoRef.current.muted = !isMuted;
-    setIsMuted(!isMuted);
-  };
-
   const handleTimeUpdate = () => {
     if (videoRef.current) {
       const p = (videoRef.current.currentTime / videoRef.current.duration) * 100;
@@ -86,24 +80,42 @@ const VideoCard = ({ video }) => {
 
   return (
     <div className={styles.videoCardContainer} ref={containerRef}>
+      {/* New Top Navigation Bar */}
+      <div className={styles.topNav}>
+        <div className={styles.topLeft}>
+          <button className={styles.backBtn} onClick={() => navigate(-1)}>
+            <ChevronLeft size={24} strokeWidth={2.5} />
+          </button>
+          <span className={styles.epIndicator}>EP.{video.episode || 1}</span>
+        </div>
+        <div className={styles.topRight}>
+          <button className={styles.speedBtn}>
+            <Gauge size={18} /> Speed
+          </button>
+          <button className={styles.moreBtn}>
+            <MoreVertical size={20} strokeWidth={2.5} />
+          </button>
+        </div>
+      </div>
+
       {!isLoaded && (
         <div className={styles.loaderContainer}>
           <Loader className={styles.spinner} size={40} />
         </div>
       )}
+
       <video
         ref={videoRef}
         src={video.videoUrl}
         className={styles.videoElement}
         loop
         playsInline
-        muted={isMuted}
+        muted={isMuted} /* Still muted by default, but relying on browser/user interaction for unmute or we can add a toggle later */
         onTimeUpdate={handleTimeUpdate}
         onCanPlay={() => setIsLoaded(true)}
         onClick={togglePlay}
       />
-      
-      {/* Dark gradient overlay at bottom for text readability */}
+
       <div className={styles.gradientOverlay}></div>
 
       {!isPlaying && isLoaded && (
@@ -112,19 +124,14 @@ const VideoCard = ({ video }) => {
         </div>
       )}
 
-      <button className={styles.muteBtn} onClick={toggleMute}>
-        {isMuted ? <VolumeX size={24} /> : <Volume2 size={24} />}
-      </button>
 
-      <VideoOverlay 
-        seriesTitle={video.seriesTitle}
-        episodeTitle={video.episodeTitle}
+      <VideoOverlay
+        seriesTitle={video.seriesTitle || video.title}
         description={video.description}
-        genre={video.genre}
       />
-      
+
       <ActionButtons />
-      
+
       <ProgressBar progress={progress} />
     </div>
   );
