@@ -1,8 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { Play, Loader, ChevronLeft, MoreVertical, Gauge } from 'lucide-react';
+import { Play, Loader, ChevronLeft, MoreVertical, Gauge, Bookmark, Send } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import VideoOverlay from './VideoOverlay';
-import ActionButtons from './ActionButtons';
 import ProgressBar from './ProgressBar';
 import styles from '../../pages/Explore.module.css';
 
@@ -125,12 +123,29 @@ const VideoCard = ({ video }) => {
       )}
 
 
-      <VideoOverlay
-        seriesTitle={video.seriesTitle || video.title}
-        description={video.description}
-      />
+      <div className={styles.overlayContent}>
+        {/* Bottom Left Area */}
+        <div className={styles.overlayLeft}>
+          <div className={styles.trailerBadge}>Trailer</div>
+          <h1 className={styles.overlayTitle}>{video.seriesTitle || video.title}</h1>
+          <button className={styles.watchBtn} onClick={togglePlay}>
+            <Play size={16} fill="currentColor" className={styles.watchBtnIcon} />
+            Watch. Total {video.episodesCount || 20} Episodes
+          </button>
+        </div>
 
-      <ActionButtons />
+        {/* Bottom Right Sidebar */}
+        <div className={styles.overlayRight}>
+          <button className={styles.actionBtn}>
+            <Bookmark size={26} />
+            <span>Wishlist</span>
+          </button>
+          <button className={styles.actionBtn}>
+            <Send size={26} />
+            <span>Share</span>
+          </button>
+        </div>
+      </div>
 
       <ProgressBar progress={progress} />
     </div>

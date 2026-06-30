@@ -161,6 +161,67 @@
   gap: 15px;
 }
 
+/* Top Navigation Overlay */
+.topNav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 15px;
+  z-index: 20;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+  color: white;
+  pointer-events: auto;
+}
+
+.topLeft {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.epIndicator {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: white;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.topRight {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.speedBtn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.moreBtn {
+  background: none;
+  border: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0;
+  filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.8));
+}
+
 .topBarTitle {
   font-size: 16px;
   font-weight: 600;
@@ -377,22 +438,25 @@
   background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%);
   display: flex;
   flex-direction: column;
-  padding: 20px 15px 15px; /* Bottom padding for progress bar */
+  padding: 20px 15px 15px;
+  /* Bottom padding for progress bar */
   opacity: 0;
   transition: opacity 0.3s;
-  pointer-events: none; /* Let clicks pass through to video */
+  pointer-events: none;
+  /* Let clicks pass through to video */
 }
 
 .videoContainer:hover .customControls {
   opacity: 1;
 }
 
-.overlayContent {
+.bottomOverlay {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
   margin-bottom: 12px;
-  pointer-events: auto; /* Re-enable clicks for buttons */
+  pointer-events: auto;
+  width: 100%;
 }
 
 /* Bottom Left Area */
@@ -404,44 +468,31 @@
   padding-right: 20px;
 }
 
-.trailerBadge {
-  background-color: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  font-size: 11px;
-  font-weight: 600;
-  padding: 4px 12px;
-  border-radius: 12px;
-  width: fit-content;
-}
-
-.overlayTitle {
-  font-size: 22px;
-  font-weight: 800;
-  color: #fff;
+.overlayTitleSmall {
+  font-size: 15px;
+  font-weight: 700;
   margin: 0;
-  text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
-  line-height: 1.2;
-}
-
-.watchBtn {
-  background-color: #fff;
-  color: #000;
-  border: none;
-  border-radius: 6px;
-  padding: 8px 16px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
-  gap: 8px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  width: fit-content;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  gap: 4px;
 }
 
-.watchBtnIcon {
-  color: #000;
+.miniIcon {
+  margin-bottom: 2px;
+  opacity: 0.9;
+}
+
+.overlayDescription {
+  font-size: 12px;
+  line-height: 1.3;
+  margin: 0;
+  color: #ddd;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Bottom Right Sidebar */
@@ -462,13 +513,13 @@
   gap: 4px;
   cursor: pointer;
   padding: 0;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .actionBtn span {
   font-size: 11px;
   font-weight: 600;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 /* Extra Utility Controls */
@@ -485,7 +536,7 @@
   font-size: 12px;
   color: #ddd;
   font-variant-numeric: tabular-nums;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
 }
 
 .extraControlsIcons {
@@ -504,7 +555,7 @@
   cursor: pointer;
   padding: 0;
   transition: transform 0.2s, color 0.2s;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .utilBtn:hover {
@@ -526,7 +577,8 @@
 
 .progressBar {
   height: 100%;
-  background: #00d2ff; /* Bright blue to match screenshot */
+  background: #00d2ff;
+  /* Bright blue to match screenshot */
   width: 0%;
   position: relative;
 }
@@ -540,7 +592,7 @@
   height: 12px;
   background: #00d2ff;
   border-radius: 50%;
-  box-shadow: 0 0 4px rgba(0,0,0,0.5);
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
 .recommendationSection {
@@ -717,7 +769,7 @@
     flex-direction: column;
   }
 
-  .recommendationSection > div {
+  .recommendationSection>div {
     margin-bottom: 0;
   }
 }
@@ -731,7 +783,7 @@
   }
 
   .playerPage {
-    padding-top: 0;
+    padding-top: 50px;
   }
 
   .layout {
@@ -748,14 +800,25 @@
   }
 
   .videoContainer {
-    width: 85%;
-    max-width: 360px;
+    width: calc(100% - 20px);
+    max-width: 85%;
     margin: 0 auto;
-    border-radius: 16px;
+    border-radius: 12px;
+    height: 70vh;
+    /* Increased height slightly */
+    max-height: 600px;
+    aspect-ratio: auto;
+    /* Overrides the 9/16 rule */
+  }
+
+  .customControls {
+    opacity: 1; /* Always visible on mobile */
   }
 
   .rightColumn {
-    width: 100%;
+    width: calc(100% - 20px);
+    max-width: 85%;
+    margin: 0 auto;
     padding-top: 15px;
     height: auto;
     overflow: visible;
@@ -769,7 +832,7 @@
   .episodeGridWrapper {
     overflow-x: auto;
     scrollbar-width: none;
-    padding: 0 20px;
+    padding: 0;
     margin-bottom: 20px;
   }
 
@@ -795,28 +858,23 @@
     font-size: 14px;
   }
 
-  .videoContainer {
-    width: calc(100% - 20px);
-    max-width: 100%;
-    margin: 0 auto;
-    border-radius: 12px;
-  }
+
 
   .plotSection {
-    padding: 0 20px;
+    padding: 0;
     margin-bottom: 0;
   }
 
   .recommendationSection {
-    padding: 0 20px;
+    padding: 0;
     margin-top: 10px;
   }
 
   .mobileTitleGroup {
-    padding: 0 20px;
+    padding: 0;
   }
 
   .episodeTabs {
-    padding: 0 20px;
+    padding: 0;
   }
 }

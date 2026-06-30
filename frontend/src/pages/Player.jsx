@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { ArrowLeft, Play, Pause, Heart, Star, Share, Lock, BarChart2, SkipForward, SkipBack, Volume2, VolumeX, Maximize, Bookmark, Send } from 'lucide-react';
+import { ArrowLeft, Play, Pause, Heart, Star, Share, Lock, BarChart2, SkipForward, SkipBack, Volume2, VolumeX, Maximize, Bookmark, Send, ChevronLeft, Gauge, MoreVertical, MonitorPlay, ChevronRight, ListVideo, Forward } from 'lucide-react';
 import { getSeriesById, getEpisodesBySeriesId, getHomeData } from '../services/api';
 import Row from '../components/Row';
 import { useWatchContext } from '../context/WatchContext';
@@ -166,12 +166,7 @@ const Player = () => {
 
   return (
     <div className={styles.playerPage}>
-      {/* Mobile Top Bar */}
-      <div className={`${styles.topBar} ${styles.mobileOnly}`}>
-        <button onClick={() => navigate(-1)} className={styles.backBtn}>
-          <ArrowLeft size={24} />
-        </button>
-      </div>
+      {/* Top Nav moved inside videoContainer for mobile */}
 
       <div className={styles.layout}>
         {/* Left: Video Player */}
@@ -181,6 +176,25 @@ const Player = () => {
           </button>
 
           <div className={styles.videoContainer} onClick={togglePlay} ref={containerRef}>
+            {/* Top Navigation Overlay (Mobile) */}
+            {!isPlaying && (
+              <div className={`${styles.topNav} ${styles.mobileOnly}`} onClick={(e) => e.stopPropagation()}>
+                <div className={styles.topLeft}>
+                  <button className={styles.backBtn} onClick={() => navigate(-1)}>
+                    <ChevronLeft size={24} strokeWidth={2.5} />
+                  </button>
+                  <span className={styles.epIndicator}>EP.{currentEpisode.episode_number}</span>
+                </div>
+                <div className={styles.topRight}>
+                  <button className={styles.speedBtn}>
+                    <Gauge size={18} /> Speed
+                  </button>
+                  <button className={styles.moreBtn}>
+                    <MoreVertical size={20} strokeWidth={2.5} />
+                  </button>
+                </div>
+              </div>
+            )}
             <video
               ref={videoRef}
               src={currentEpisode.video_url}
@@ -199,57 +213,63 @@ const Player = () => {
             )}
 
             {/* Custom Controls (Mobile-style overlay) */}
-            <div className={styles.customControls} onClick={(e) => e.stopPropagation()}>
-              <div className={styles.overlayContent}>
-                {/* Bottom Left Area */}
-                <div className={styles.overlayLeft}>
-                  <div className={styles.trailerBadge}>Trailer</div>
-                  <h1 className={styles.overlayTitle}>{series?.title || 'Loading...'}</h1>
-                  <button className={styles.watchBtn} onClick={togglePlay}>
-                    <Play size={16} fill="currentColor" className={styles.watchBtnIcon} />
-                    Watch. Total {episodes.length} Episodes
-                  </button>
+            {!isPlaying && (
+              <div className={styles.customControls} onClick={(e) => e.stopPropagation()}>
+                <div className={styles.bottomOverlay}>
+                  <div className={styles.overlayLeft}>
+                    <MonitorPlay size={16} className={styles.miniIcon} />
+                    <h2 className={styles.overlayTitleSmall}>
+                      {series?.title} <ChevronRight size={16} strokeWidth={3} />
+                    </h2>
+                    <p className={styles.overlayDescription}>
+                      {currentEpisode?.description?.length > 40
+                        ? `${currentEpisode.description.substring(0, 40)}...`
+                        : currentEpisode?.description}
+                    </p>
+                  </div>
+                  <div className={styles.overlayRight}>
+                    <button className={styles.actionBtn}>
+                      <Bookmark size={26} />
+                      <span>69K</span>
+                    </button>
+                    <button className={styles.actionBtn}>
+                      <ListVideo size={26} />
+                      <span>Episodes</span>
+                    </button>
+                    <button className={styles.actionBtn}>
+                      <Forward size={26} />
+                      <span>Share</span>
+                    </button>
+                  </div>
                 </div>
 
-                {/* Bottom Right Sidebar */}
-                <div className={styles.overlayRight}>
-                  <button className={styles.actionBtn}>
-                    <Bookmark size={26} />
-                    <span>Wishlist</span>
-                  </button>
-                  <button className={styles.actionBtn}>
-                    <Send size={26} />
-                    <span>Share</span>
-                  </button>
+                {/* Extra Controls Row */}
+                <div className={styles.extraControls}>
+                  <span className={styles.timeDisplay}>
+                    {formatTime(currentTime)} / {formatTime(duration)}
+                  </span>
+                  <div className={styles.extraControlsIcons}>
+                    <button className={styles.utilBtn} onClick={handlePrev}>
+                      <SkipBack size={18} />
+                    </button>
+                    <button className={styles.utilBtn} onClick={handleNext}>
+                      <SkipForward size={18} />
+                    </button>
+                    <button className={styles.utilBtn} onClick={toggleMute}>
+                      {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                    </button>
+                    <button className={styles.utilBtn} onClick={toggleFullscreen}>
+                      <Maximize size={18} />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Progress Bar */}
+                <div className={styles.progressBarContainer}>
+                  <div className={styles.progressBar} style={{ width: `${progressPercentage}%` }}></div>
                 </div>
               </div>
-
-              {/* Extra Controls Row */}
-              <div className={styles.extraControls}>
-                <span className={styles.timeDisplay}>
-                  {formatTime(currentTime)} / {formatTime(duration)}
-                </span>
-                <div className={styles.extraControlsIcons}>
-                  <button className={styles.utilBtn} onClick={handlePrev}>
-                    <SkipBack size={18} />
-                  </button>
-                  <button className={styles.utilBtn} onClick={handleNext}>
-                    <SkipForward size={18} />
-                  </button>
-                  <button className={styles.utilBtn} onClick={toggleMute}>
-                    {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-                  </button>
-                  <button className={styles.utilBtn} onClick={toggleFullscreen}>
-                    <Maximize size={18} />
-                  </button>
-                </div>
-              </div>
-
-              {/* Progress Bar */}
-              <div className={styles.progressBarContainer}>
-                <div className={styles.progressBar} style={{ width: `${progressPercentage}%` }}></div>
-              </div>
-            </div>
+            )}
           </div>
         </div>
 

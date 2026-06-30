@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { Eye, EyeOff, Mail, Lock } from 'lucide-react';
+import { Phone, KeyRound } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import styles from './Auth.module.css';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+  const [step, setStep] = useState(1); // 1: Phone, 2: OTP
+  const [phone, setPhone] = useState('');
+  const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   
-  const { login, isAuthenticated } = useAuth();
+  const { loginWithOTP, isAuthenticated } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
   const from = location.state?.from?.pathname || '/';
+
+  // Demo background image (can be dynamically populated from backend/admin panel later)
+  const bgImage = "url('https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1080&auto=format&fit=crop')";
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -24,17 +26,34 @@ const Login = () => {
     }
   }, [isAuthenticated, navigate, from]);
 
-  const handleSubmit = async (e) => {
+  const handleSendOTP = (e) => {
     e.preventDefault();
     setError('');
     
-    if (!email || !password) {
-      setError('Please fill in all fields');
+    if (!phone || phone.length < 10) {
+      setError('Please enter a valid phone number');
       return;
     }
 
     setLoading(true);
-    const result = await login(email, password, rememberMe);
+    // Simulate API call to send OTP
+    setTimeout(() => {
+      setLoading(false);
+      setStep(2);
+    }, 800);
+  };
+
+  const handleVerifyOTP = async (e) => {
+    e.preventDefault();
+    setError('');
+    
+    if (!otp || otp.length !== 4) {
+      setError('Please enter the 4-digit OTP');
+      return;
+    }
+
+    setLoading(true);
+    const result = await loginWithOTP(phone, otp);
     
     if (result.success) {
       navigate(from, { replace: true });
@@ -45,79 +64,88 @@ const Login = () => {
   };
 
   return (
-    <div className={styles.authContainer}>
+    <div 
+      className={styles.authContainer} 
+      style={{ backgroundImage: bgImage }}
+    >
       <div className={styles.authCard}>
         <div className={styles.authHeader}>
-          <h2>Welcome Back</h2>
-          <p>Login to continue watching ShortFlix</p>
+          <h2>Welcome to ShortFlix</h2>
+          <p>
+            {step === 1 
+              ? "Enter your phone number to continue" 
+              : `Enter the OTP sent to ${phone}`
+            }
+          </p>
         </div>
 
         {error && <div className={styles.errorMessage}>{error}</div>}
 
-        <form onSubmit={handleSubmit} className={styles.authForm}>
-          <div className={styles.formGroup}>
-            <label>Email Address</label>
-            <div className={styles.inputWrapper}>
-              <Mail className={styles.inputIcon} size={20} />
-              <input 
-                type="email" 
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                disabled={loading}
-              />
+        {step === 1 ? (
+          <form onSubmit={handleSendOTP} className={styles.authForm}>
+            <div className={styles.formGroup}>
+              <label>Phone Number</label>
+              <div className={styles.inputWrapper}>
+                <Phone className={styles.inputIcon} size={20} />
+                <input 
+                  type="tel" 
+                  placeholder="e.g., 9876543210"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                  maxLength={15}
+                  disabled={loading}
+                  autoFocus
+                />
+              </div>
             </div>
-          </div>
 
-          <div className={styles.formGroup}>
-            <label>Password</label>
-            <div className={styles.inputWrapper}>
-              <Lock className={styles.inputIcon} size={20} />
-              <input 
-                type={showPassword ? "text" : "password"} 
-                placeholder="Enter your password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                disabled={loading}
-              />
-              <button 
-                type="button"
-                className={styles.passwordToggle}
-                onClick={() => setShowPassword(!showPassword)}
-                disabled={loading}
-              >
-                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
-              </button>
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={loading}
+            >
+              {loading ? 'Sending OTP...' : 'Send OTP'}
+            </button>
+          </form>
+        ) : (
+          <form onSubmit={handleVerifyOTP} className={styles.authForm}>
+            <div className={styles.formGroup}>
+              <label>4-Digit OTP</label>
+              <div className={styles.inputWrapper}>
+                <KeyRound className={styles.inputIcon} size={20} />
+                <input 
+                  type="text" 
+                  placeholder="Enter 1234 for testing"
+                  value={otp}
+                  onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                  maxLength={4}
+                  disabled={loading}
+                  autoFocus
+                  style={{ letterSpacing: '8px', fontWeight: 'bold' }}
+                />
+              </div>
             </div>
-          </div>
 
-          <div className={styles.formOptions}>
-            <label className={styles.checkboxLabel}>
-              <input 
-                type="checkbox" 
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                disabled={loading}
-              />
-              <span>Remember me</span>
-            </label>
-            <a href="#" className={styles.forgotPassword} onClick={(e) => e.preventDefault()}>
-              Forgot Password?
-            </a>
-          </div>
+            <button 
+              type="submit" 
+              className={styles.submitBtn}
+              disabled={loading}
+            >
+              {loading ? 'Verifying...' : 'Login securely'}
+            </button>
+            
+            <button 
+              type="button" 
+              onClick={() => { setStep(1); setOtp(''); setError(''); }}
+              className={styles.submitBtn}
+              style={{ background: 'transparent', border: '1px solid rgba(255,255,255,0.2)', marginTop: '0' }}
+              disabled={loading}
+            >
+              Change Phone Number
+            </button>
+          </form>
+        )}
 
-          <button 
-            type="submit" 
-            className={styles.submitBtn}
-            disabled={loading}
-          >
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
-        </form>
-
-        <div className={styles.authFooter}>
-          <p>Don't have an account? <Link to="/register">Sign Up</Link></p>
-        </div>
       </div>
     </div>
   );

@@ -80,11 +80,31 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const loginWithOTP = async (phone, otp) => {
+    // Mock testing flow for OTP
+    if (otp === '1234') {
+      const dummyUser = {
+        id: 999,
+        username: 'TestUser',
+        email: 'test@shortflix.com',
+        phone: phone,
+      };
+      const dummyToken = 'dummy_otp_token_testing';
+      
+      sessionStorage.setItem('token', dummyToken);
+      setUser(dummyUser);
+      return { success: true };
+    } else {
+      return { success: false, message: 'Invalid OTP. For testing, please use 1234.' };
+    }
+  };
+
   const value = {
     user,
     loading,
     isAuthenticated: !!user,
     login,
+    loginWithOTP,
     register,
     logout
   };

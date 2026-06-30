@@ -22,8 +22,8 @@ module.exports = {
       seriesData.push({
         title: faker.lorem.words({ min: 2, max: 5 }),
         description: faker.lorem.paragraph(),
-        poster: `https://picsum.photos/540/960?random=${i}`,
-        banner: `https://picsum.photos/1280/720?random=${i + 100}`,
+        poster: `https://loremflickr.com/540/960/movie?random=${i}`,
+        banner: `https://loremflickr.com/1280/720/movie?random=${i + 100}`,
         rating: faker.number.float({ min: 3.5, max: 5, fractionDigits: 1 }),
         views: faker.number.int({ min: 1000, max: 1000000 }),
         genre: faker.helpers.arrayElement(categories).name,
@@ -54,8 +54,8 @@ module.exports = {
           episode_number: j,
           title: `Episode ${j}: ${faker.lorem.words({ min: 2, max: 4 })}`,
           description: faker.lorem.sentences(2),
-          video_url: 'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/720/Big_Buck_Bunny_720_10s_1MB.mp4',
-          thumbnail: `https://picsum.photos/320/180?random=${episodeIdCounter}`,
+          video_url: 'https://media.w3.org/2010/05/sintel/trailer_hd.mp4',
+          thumbnail: `https://loremflickr.com/320/180/movie?random=${episodeIdCounter}`,
           duration: faker.number.int({ min: 60, max: 180 }), // 1 to 3 mins
           is_premium: j > 5, // Episodes 6-20 are premium
           createdAt: new Date(),
