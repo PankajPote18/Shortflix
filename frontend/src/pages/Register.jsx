@@ -19,6 +19,9 @@ const Register = () => {
 
   const from = location.state?.from?.pathname || '/';
 
+  // Demo background image to match login page
+  const bgImage = "url('https://images.unsplash.com/photo-1616530940355-351fabd9524b?q=80&w=1080&auto=format&fit=crop')";
+
   useEffect(() => {
     if (isAuthenticated) {
       navigate(from, { replace: true });
@@ -56,7 +59,10 @@ const Register = () => {
   };
 
   return (
-    <div className={styles.authContainer}>
+    <div 
+      className={styles.authContainer}
+      style={{ backgroundImage: bgImage }}
+    >
       <div className={styles.authCard}>
         <div className={styles.authHeader}>
           <h2>Create Account</h2>

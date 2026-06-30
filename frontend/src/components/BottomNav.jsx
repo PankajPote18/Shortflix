@@ -12,7 +12,8 @@ const BottomNav = () => {
   if (
     location.pathname.startsWith('/watch') || 
     location.pathname === '/login' || 
-    location.pathname === '/register'
+    location.pathname === '/register' ||
+    location.pathname === '/explore'
   ) {
     return null;
   }

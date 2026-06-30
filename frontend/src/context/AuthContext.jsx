@@ -14,13 +14,23 @@ export const AuthProvider = ({ children }) => {
     const initAuth = async () => {
       const token = localStorage.getItem('token') || sessionStorage.getItem('token');
       if (token) {
-        try {
-          const res = await authAPI.getMe();
-          setUser(res.data.user);
-        } catch (error) {
-          console.error('Auth initialization failed:', error);
-          localStorage.removeItem('token');
-          sessionStorage.removeItem('token');
+        if (token === 'dummy_otp_token_testing') {
+          // Bypass backend check for testing token
+          setUser({
+            id: 999,
+            username: 'TestUser',
+            email: 'test@shortflix.com',
+            phone: 'Testing',
+          });
+        } else {
+          try {
+            const res = await authAPI.getMe();
+            setUser(res.data.user);
+          } catch (error) {
+            console.error('Auth initialization failed:', error);
+            localStorage.removeItem('token');
+            sessionStorage.removeItem('token');
+          }
         }
       }
       setLoading(false);
@@ -91,7 +101,7 @@ export const AuthProvider = ({ children }) => {
       };
       const dummyToken = 'dummy_otp_token_testing';
       
-      sessionStorage.setItem('token', dummyToken);
+      localStorage.setItem('token', dummyToken);
       setUser(dummyUser);
       return { success: true };
     } else {
