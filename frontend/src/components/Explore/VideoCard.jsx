@@ -78,23 +78,7 @@ const VideoCard = ({ video }) => {
 
   return (
     <div className={styles.videoCardContainer} ref={containerRef}>
-      {/* New Top Navigation Bar */}
-      <div className={styles.topNav}>
-        <div className={styles.topLeft}>
-          <button className={styles.backBtn} onClick={() => navigate(-1)}>
-            <ChevronLeft size={24} strokeWidth={2.5} />
-          </button>
-          <span className={styles.epIndicator}>EP.{video.episode || 1}</span>
-        </div>
-        <div className={styles.topRight}>
-          <button className={styles.speedBtn}>
-            <Gauge size={18} /> Speed
-          </button>
-          <button className={styles.moreBtn}>
-            <MoreVertical size={20} strokeWidth={2.5} />
-          </button>
-        </div>
-      </div>
+
 
       {!isLoaded && (
         <div className={styles.loaderContainer}>
